@@ -1,0 +1,45 @@
+#!/data/data/com.termux/files/usr/bin/python2
+
+"""
+   Created by          :  Kuburan_0day A.K.A Gembur Ae
+   Version             :  1.0
+   Codename            :  Batu Nisan
+
+"""
+
+
+import os, sys
+
+# check default file
+bin_folder = '/data/data/com.termux/files/usr/bin'
+if not os.path.isfile("%s/txtool" % (bin_folder)):
+    sys.stderr.write("\n Fatal error, this file should be located under $PREFIX/bin directory.  !\n")
+    sys.exit()
+
+# check default directory
+share_folder = '/data/data/com.termux/files/usr/share'
+sys.path.append("%s/txtool" % (share_folder))
+if not os.path.isdir("%s/txtool" % (share_folder)):
+    sys.stderr.write("\n Wrong installation directory !\n")
+    sys.exit()
+
+# make output folder
+txtool_dir = os.path.join(os.path.expanduser('~'), '.txtool')
+if not os.path.isdir(txtool_dir):
+    os.makedirs(txtool_dir)
+
+# main program
+sys.path.append('/data/data/com.termux/files/usr/share/txtool/core')
+from fungsi import warna
+from menu import *
+
+# start
+def start():
+    menu_utama()
+
+if __name__=='__main__':
+    try:
+        start()
+
+    except(KeyboardInterrupt):
+        print(warna.merah + "\n[x] " + warna.tutup + "{0}CTRL+C{1} Detected, force program to stop !\n".format(warna.merah, warna.tutup))
