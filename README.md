@@ -7,3 +7,6 @@ $ cd txtool
 $ ./install.py  
 
 Done. type txtool to launch this tool.  
+
+# Contact  
+kuburan000@protonmail.ch  
