@@ -169,7 +169,7 @@ def setOutputs(sIP, iPort, sOutputs):
     ## Set Outputs
     ## First 4 bytes are TPKT (last byte==datalength), next 3 bytes are COTP, last 24 bytes are S7Comm Set Var, last byte contains data to send!
     s7Response = binascii.hexlify(sendAndRecv(sock, '03000024' + '02f080' + '32010000732f000e00050501120a1002000100008200000000040008' + hexstring))
-    if s7Response[-2:] == 'ff': print(warna.merah + '[x] ' + warna.tutup + 'Writing Outputs successful')
+    if s7Response[-2:] == 'ff': print(warna.hijau + '[*] ' + warna.tutup + 'Writing Outputs successful')
     else: print(warna.merah + '[x] ' + warna.tutup + 'Error writing outputs.')
     sock.close()
 
@@ -199,7 +199,7 @@ def setMerkers(sIP, iPort, sMerkers, iMerkerOffset=0):
 
     s7Response = binascii.hexlify(sendAndRecv(sock, '03000025' + '02f080' + '320100001500000e00060501120a100400010000 83 ' + hMerkerOffset + '00 04 0010' + hexstring + '00'))
     if s7Response[-2:] == 'ff': print(warna.hijau + '[*] ' + warna.tutup + 'Writing Merkers successful')
-    else: print(warna.hijau + '[*] ' + warna.tutup + 'Error writing merkers.')
+    else: print(warna.merah + '[x] ' + warna.tutup + 'Error writing merkers.')
     sock.close()
 
 ##### The Actual Program

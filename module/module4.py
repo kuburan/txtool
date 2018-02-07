@@ -14,9 +14,9 @@ def cari_admin_panel():
     admin_panel_folder = '/data/data/com.termux/files/usr/share/txtool/core'
     file = open("%s/daftar_admin_panel.txt" %
                      (admin_panel_folder), "r");
-    print(warna.kuning + "\n[!]" + warna.tutup + "  Example : example.com or www.example.com")
+    print(warna.kuning + "\n[!]" + warna.tutup + " Example : example.com or www.example.com")
     link = raw_input(warna.biru + "[+]" + warna.tutup + " Enter your website " + warna.kuning + "  >>  " + warna.tutup)
-    print(warna.hijau + "\n[*] " + warna.tutup + " tXtool still searching admin login pages, please wait a moment...\n")
+    print(warna.hijau + "\n[*]" + warna.tutup + " tXtool still searching admin login pages, please wait a moment...\n")
     while True:
         sub_link = file.readline()
         if not sub_link:
@@ -33,5 +33,5 @@ def cari_admin_panel():
             continue
 
         else:
-            print warna.hijau + "[*] " + warna.tutup + " Found  ~~>>" ,request_link
+            print warna.hijau + "[*]" + warna.tutup + " Found  ~~>>" ,request_link
 
