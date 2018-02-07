@@ -239,6 +239,9 @@ def menu10():
 
     print(warna.kuning + "\n[!] " + warna.tutup + " The default port is 102")
     port = raw_input(warna.biru + "[+] " + warna.tutup + " Enter Port number  [102]" + warna.kuning + "  >>  " + warna.tutup)
+    if port == "":
+        port = "102"
+
     print(warna.kuning + '\n[!] ' + warna.tutup + ' Example : "10101010,3" to set merkers 3.0 through 3.7')
     merker = raw_input(warna.biru + "[+] " + warna.tutup + " Set the merkers" + warna.kuning + "  >>  " + warna.tutup)
     print(warna.kuning + '\n[!] ' + warna.tutup + ' Example set output : "00000000"')
