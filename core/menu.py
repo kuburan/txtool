@@ -88,10 +88,6 @@ def menu6():
     eksekusi_menu(pilih)
     return
 
-
-def Kembali():
-    menu['menu_utama']()
-
 def Keluar():
     print(warna.kuning + "\n[!]  Thank You For Using tXtool. have a great day !\n" + warna.tutup)
     sys.exit()
@@ -104,7 +100,6 @@ menu = {
     '4': menu4,
     '5': menu5,
     '6': menu6,
-    '0': Kembali,
     'keluar': Keluar,
     'exit': Keluar,
     'quit': Keluar,

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
-import menu as back
+import menu as KEMBALI
 from fungsi import warna, check_metasploit
 
 
@@ -98,11 +98,8 @@ def menu7():
     eksekusi_menu(pilih)
     return
 
-def Kembali():
-    back.menu['menu_utama']()
-
-def kembali():
-    menu['menu_utama']()
+def back():
+    KEMBALI.menu['menu_utama']()
 
 menu = {
     'menu_utama': menu_utama,
@@ -113,5 +110,5 @@ menu = {
     '5': menu5,
     '6': menu6,
     '7': menu7,
-    '0': Kembali,
+    '0': back,
 }
