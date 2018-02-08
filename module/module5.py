@@ -42,7 +42,7 @@ def menu1():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\n"lv_poweredBy"\nintext:"/wp-content/uploads/wpsc/"\nintitle:index.of .bashrc\nintext:"index of /userfiles/file/"\ninurl:/wp-content/plugins/seo-pressor/classes/\ninurl:"nfs://www." "index of /"\nintext:/wp-content/plugins/woocommerce/templates/emails/plain/\ninurl:/sym/root/ intitle:index.of\nintext:"Index of /database"\nintext:"Index of /.git"\nintitle:index.of intext:viewvc\n"m.zippyshare.com/"\nindex of /htdocs\n""")
+            filewrite.write("""\n"lv_poweredBy" -twitter -lang -ghdb -google -cloud -forum -pastebin -site:www.tankeast.ru -site:http://artcool.org\nintext:"/wp-content/uploads/wpsc/"\nintitle:index.of .bashrc\nintext:"index of /userfiles/file/"\ninurl:/wp-content/plugins/seo-pressor/classes/\ninurl:"nfs://www." "index of /"\nintext:/wp-content/plugins/woocommerce/templates/emails/plain/\ninurl:/sym/root/ intitle:index.of\nintext:"Index of /database"\nintext:"Index of /.git"\nintitle:index.of intext:viewvc\n"m.zippyshare.com/"\nindex of /htdocs\n""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
