@@ -14,10 +14,12 @@ if not os.path.isfile("%s/sources.list" % (apt_folder)):
 
 else:
     print "\n installing txtool...\n"
-    os.system("mv -f txtool %s/txtool" % (bin))
-    os.system("mkdir -p %s/txtool && mv -f core %s/txtool/core" %
+    os.system("cd %s && rm -fr txtool" % (bin))
+    os.system("cd %s && rm -fr txtool" % (share))
+    os.system("cp txtool %s" % (bin))
+    os.system("mkdir -p %s/txtool && cp -r core %s/txtool" %
              (share, share))
-    os.system("mv -f module %s/txtool/module && mv -f other %s/txtool/other" %
+    os.system("cp -r module %s/txtool && cp -r other %s/txtool" %
              (share, share))
     os.system("apt-get install --assume-yes nmap php")
     print "\n Done !!! type command txtool to launch txtool\n"
