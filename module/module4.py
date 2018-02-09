@@ -6,9 +6,18 @@ from urllib2 import Request, urlopen, URLError, HTTPError
 
 sys.path.append('/data/data/com.termux/files/usr/share/txtool/core')
 from fungsi import warna, IP, txtool_dir
+import menu as back
 
 
-# search admin login page
+def empty():
+    try:
+        print(warna.kuning + "\n[!] " + warna.tutup + "Warning. your input is empty, txtool will be assume searching is canceled")
+        raw_input("\n    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+
+    except KeyError:
+        pass
+
+
 def cari_admin_panel():
     IP()
     admin_panel_folder = '/data/data/com.termux/files/usr/share/txtool/core'
@@ -16,6 +25,10 @@ def cari_admin_panel():
                      (admin_panel_folder), "r");
     print(warna.kuning + "\n[!]" + warna.tutup + " Example : example.com or www.example.com")
     link = raw_input(warna.biru + "[+]" + warna.tutup + " Enter your website " + warna.kuning + "  >>  " + warna.tutup)
+    if link == '':
+        empty()
+        back.menu['menu_utama']()
+
     print(warna.hijau + "\n[*]" + warna.tutup + " tXtool still searching admin login pages, please wait a moment...\n")
     while True:
         sub_link = file.readline()
