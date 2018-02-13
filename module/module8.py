@@ -45,7 +45,7 @@ def menu1():
             filewrite = open(txtool_dir + "/dork.txt", "w")
             filewrite.write("""\ninurl:demo.browse.php intitle:getid3 -git\ninurl:loader-wizard ext:php -git -gitlab -forum\ninurl:/install/install.php intitle:vBulletin Install System\ninurl:"simplenews/admin" -includes -git -drupal -intitle:"New google dork" -site:"https://alphahack.su"\ninurl:updown.php | intext:"Powered by PHP Uploader Downloader" intitle:"Upload Or Download" -git\n""")
             filewrite.close()
-            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 --sall %s" %
+            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6,24 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
             finish_dorking()
             print(warna.hijau + "[*] " + warna.tutup + " Crawl result has been saved to /data/data/com.termux/files/home/.txtool/output/%s " %
@@ -75,7 +75,7 @@ def menu2():
             filewrite = open(txtool_dir + "/dork.txt", "w")
             filewrite.write("""\nintitle:"SSHVnc Applet"OR intitle:"SSHTerm Applet" intext:"index of /" -git -uni-klu.ac.at -net/viewcvs.py -iphoting.iphoting.com\nfiletype:pl -intext:"/usr/bin/perl" inurl:webcal (inurl:webcal | inurl:add | inurl:delete | inurl:config)\nintitle:"CJ Link Out V1 -pastebin"\next:asp inurl:DUgallery intitle:"3.0" -site:dugallery.com -site:duware.com\nfiletype:cgi inurl:cachemgr.cgi intitle:"Cache Manager Interface" -git\n""")
             filewrite.close()
-            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 --sall %s" %
+            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6,24 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
             finish_dorking()
             print(warna.hijau + "[*] " + warna.tutup + " Crawl result has been saved to /data/data/com.termux/files/home/.txtool/output/%s " %
@@ -105,7 +105,7 @@ def menu3():
             filewrite = open(txtool_dir + "/dork.txt", "w")
             filewrite.write("""\nintitle:"ASP FileMan" intext:"Resend pass" -site:iisworks.com\nintitle:"ezBOO WebStats" intext:"Statistics by ezBOO Webstats" -git -forum\nintitle:"File Upload Manager" intext:"File Upload Manager v1.3" -intitle:"Trw Vin" -intitle:"v1" -forum -exploit -hacking -blog -demo -Tutorial\nintitle:"phpremoteview" filetype:php "Name, Size, Type, Modify" -git -forum\nintitle:"Directory Listing" "tree view" -pdf -question -stackoverflow -git -Windows -FileZilla -community -Microsoft -Cprogramming.com" -showthread -mail -site:"https://issues.sonatype.org" -site:"http://kobson.club" -site:"www.qtcentre.org" -site:"http://bb.dzsoundnirvana.com"\ninurl:changepassword.cgi -cvs -git -stackoverflow -community -site:"https://www.linuxquestions.org"\n""")
             filewrite.close()
-            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 --sall %s" %
+            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6,24 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
             finish_dorking()
             print(warna.hijau + "[*] " + warna.tutup + " Crawl result has been saved to /data/data/com.termux/files/home/.txtool/output/%s " %
@@ -135,7 +135,7 @@ def menu4():
             filewrite = open(txtool_dir + "/dork.txt", "w")
             filewrite.write("""\next:cgi intext:"Infopop Corporation All Rights Reserved"\ninurl:"/index.php" intext:"For security reasons the best idea is to create the Super User right NOW by clicking HERE"\nintitle:gallery inurl:setup "Gallery configuration" -git -community -video\ninurl:"/cgi-bin/" intitle:"WWWAdmin For"\ninurl:"nph-proxy.cgi" intext:"Start browsing through this CGI-based proxy by entering a URL below. " -git\n""")
             filewrite.close()
-            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 --sall %s" %
+            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6,24 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
             finish_dorking()
             print(warna.hijau + "[*] " + warna.tutup + " Crawl result has been saved to /data/data/com.termux/files/home/.txtool/output/%s " %
@@ -165,7 +165,7 @@ def menu5():
             filewrite = open(txtool_dir + "/dork.txt", "w")
             filewrite.write("""\nfiletype:inc inc intext:setcookie -git -forum -wiki -community\ninurl:php.exe filetype:exe -example.com\n""")
             filewrite.close()
-            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 --sall %s" %
+            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6,24 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
             finish_dorking()
             print(warna.hijau + "[*] " + warna.tutup + " Crawl result has been saved to /data/data/com.termux/files/home/.txtool/output/%s " %
@@ -195,7 +195,7 @@ def menu6():
             filewrite = open(txtool_dir + "/dork.txt", "w")
             filewrite.write("""\nintitle:"Index of /" modified php.exe\nfiletype:wsdl wsdl -git -gitlab -pypi -forum -samples -site:"https://svn.apache.org"\n""")
             filewrite.close()
-            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 --sall %s" %
+            subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6,24 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
             finish_dorking()
             print(warna.hijau + "[*] " + warna.tutup + " Crawl result has been saved to /data/data/com.termux/files/home/.txtool/output/%s " %
