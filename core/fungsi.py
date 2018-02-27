@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/python2
 # -*- coding: utf-8 -*-
 
-import subprocess, sys, os, time, socket
+import re, subprocess, sys, os, time, socket
 
 class warna():
     abuabu = '\033[96m'
@@ -10,7 +10,6 @@ class warna():
     hijau = '\033[92m'
     merah = '\033[91m'
     tutup = '\033[0m'
-
 
 def txtool_dir():
     return os.path.join(os.path.expanduser('~'), '.txtool')
@@ -25,7 +24,7 @@ def IP():
         alamat_ip = local_ip.getsockname()[0]
 
     except:
-        print(warna.merah + "\n[-] " + warna.tutup + "{0}fatal error{1} no internet connection\n".format(warna.merah, warna.tutup))
+        print(warna.merah + "\n[x] " + warna.tutup + "{0}fatal error{1} no internet connection\n".format(warna.merah, warna.tutup))
         sys.exit()
 
     return local_ip
@@ -36,9 +35,9 @@ def check_proxychains():
     proxychains_conf = '/data/data/com.termux/files/usr/etc'
     if not os.path.isfile("%s/proxychains4" % (proxychains_path)):
         if not os.path.isfile("%s/proxychains.conf" % (proxychains_conf)):
-            print(warna.merah + "\n[-] Fatal error" + warna.tutup + " proxychains not found !\n")
-            print(warna.kuning + "[!] " + warna.tutup + "you can download proxychains binary at its-pointless Brach, here.\n")
-            print (warna.hijau + " https://github.com/its-pointless/its-pointless.github.io/tree/master/files/dists/termux/extras\n" + warna.tutup)
+            print(warna.merah + "\n[x] Fatal error" + warna.tutup + " proxychains not found !")
+            print(warna.kuning + "[!] " + warna.tutup + "you can download proxychains binary at its-pointless Brach.")
+            print(warna.hijau + " https://github.com/its-pointless/its-pointless.github.io/tree/master/files/dists/termux/extras\n" + warna.tutup)
             sys.exit()
 
     else :
@@ -50,8 +49,8 @@ def check_php():
     php_lib = '/data/data/com.termux/files/usr/lib'
     if not os.path.isfile("%s/php" % (php_path)):
         if not os.path.isdir("%s/php" % (php_lib)):
-            print(warna.merah + "\n[-] Fatal error" + warna.tutup + " it seems php not installed in your device")
-            print(warna.kuning + "\n[!] " + warna.tutup + " please, install php and try again.\n")
+            print(warna.merah + "\n[x] Fatal error" + warna.tutup + " it seems php not installed in your device")
+            print(warna.kuning + "[!]" + warna.tutup + " please, install php and try again.\n")
             sys.exit()
     else:
         return True
@@ -62,8 +61,8 @@ def check_nmap():
     nmap_lib = '/data/data/com.termux/files/usr/share'
     if not os.path.isfile("%s/nmap" % (nmap_path)):
         if not os.path.isdir("%s/nmap" % (nmap_lib)):
-            print(warna.merah + "\n[-] Fatal error" + warna.tutup + " it seems nmap not installed in your device")
-            print(warna.kuning + "\n[!] " + warna.tutup + " please, install nmap and try again.\n")
+            print(warna.merah + "\n[x] Fatal error" + warna.tutup + " it seems nmap not installed in your device")
+            print(warna.kuning + "[!]" + warna.tutup + " please, install nmap and try again.\n")
             sys.exit()
     else:
         return True
@@ -72,7 +71,7 @@ def check_nmap():
 def empty():
     try:
         print(warna.kuning + "\n[!] " + warna.tutup + "Warning. your input is empty, txtool will be assume scanning is canceled")
-        raw_input("\n    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
     except KeyError:
         pass
@@ -81,7 +80,7 @@ def empty():
 def scan_finish():
     try:
         print(warna.hijau + "\n[*] " + warna.tutup + "Finish scanning !!!")
-        raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
     except KeyError:
         pass
@@ -97,8 +96,8 @@ def finish_dorking():
 
 def finish_exploit():
     try:
-        print(warna.hijau + "\n[*] " + warna.tutup + " Exploitation finished !!!")
-        raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        print(warna.hijau + "\n[*]" + warna.tutup + " Exploitation finished !!!")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
     except KeyError:
         pass
@@ -121,7 +120,6 @@ def check_vulscan():
             print(warna.hijau + "\n[*]" + warna.tutup + " checking vulscan script, please wait a moment. ")
             time.sleep(5)
 
-            vulscan_tarball = '/data/data/com.termux/files/usr/share/txtool/other'
             vulscan_dir = '/data/data/com.termux/files/usr/share/nmap/scripts'
             if not os.path.isdir("%s/vulscan" % (vulscan_dir)):
                 print(warna.kuning + "\n[!]" + warna.tutup + " it seems vulscan not installed in your device")
@@ -129,28 +127,20 @@ def check_vulscan():
                 print(warna.kuning + "\n[!]" + warna.tutup + " alright, txtool will prepare it for you.")
                 print(warna.hijau + "\n[*]" + warna.tutup + " please wait a moment.... ")
                 time.sleep(5)
-
-            if os.path.isfile("%s/vulscan.tar.xz" % (vulscan_tarball)):
-                os.system("apt-get install -y tar")
-                os.system("cp -f %s/vulscan.tar.xz  %s " %
-                              (vulscan_tarball, vulscan_dir))
-                os.system("cd %s && tar -xJf vulscan.tar.xz " % (vulscan_dir))
-                os.system("rm -fr %s/vulscan.tar.xz " % (vulscan_dir))
+                os.system("apt-get install -y wget tar")
+                os.system("cd %s && wget http://www.computec.ch/projekte/vulscan/download/nmap_nse_vulscan-2.0.tar.gz" %
+                              (vulscan_dir))
+                os.system("cd %s && tar -xf nmap_nse_vulscan-2.0.tar.gz " % (vulscan_dir))
+                os.system("rm -fr %s/nmap_nse_vulscan-2.0.tar.gz " % (vulscan_dir))
                 print(warna.hijau + "\n[*]" + warna.tutup + " updating script. please wait a moment.... ")
                 time.sleep(3)
                 subprocess.Popen("nmap --script-updatedb",
                                  stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True).wait()
                 print(warna.hijau + "\n[*]" + warna.tutup + " ok, everythink is fine.")
-                raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
-
-            elif not os.path.isfile("%s/vulscan.tar.xz" % (vulscan_tarball)):
-                print(warna.merah + "\n[-] Fatal error" + warna.tutup + " vulscan file not found !!\n")
-                sys.exit()
+                raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
     except KeyError:
         pass
-
-
 
 def check_redpoint():
     try:
@@ -181,12 +171,11 @@ def check_redpoint():
                 subprocess.Popen("nmap --script-updatedb",
                              stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True).wait()
                 print(warna.hijau + "\n[*]" + warna.tutup + " ok, everythink is fine.")
-                raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+                raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
             elif not os.path.isfile("%s/Redpoint.tar.xz" % (redpoint_tarball)):
-                print(warna.merah + "\n[-] Fatal error" + warna.tutup + " Redpoint file not found !!\n")
+                print(warna.merah + "\n[x] Fatal error" + warna.tutup + " Redpoint file not found !!\n")
                 sys.exit()
-
 
     except KeyError:
         pass
@@ -201,8 +190,8 @@ def check_metasploit():
         metasploit_path = "/data/data/com.termux/files/home/metasploit-framework"
 
     else:
-        print(warna.merah + "\n[-] Fatal error" + warna.tutup + " it seems metasploit not installed in your device")
-        print(warna.kuning + "\n[!] " + warna.tutup + " please, install metasploit and try again.\n")
+        print(warna.merah + "\n[x] Fatal error" + warna.tutup + " it seems metasploit not installed in your device")
+        print(warna.kuning + "[!]" + warna.tutup + " please, install metasploit and try again.\n")
         sys.exit()
 
 
@@ -217,7 +206,19 @@ def IP2():
             local_ip = alamat_ip
 
     except:
-        print(warna.merah + "\n[-] " + warna.tutup + "{0}fatal error{1} no internet connection\n".format(warna.merah, warna.tutup))
+        print(warna.merah + "\n[x] " + warna.tutup + "{0}fatal error{1} no internet connection\n".format(warna.merah, warna.tutup))
         sys.exit()
 
     return local_ip
+
+
+def ipv4(ip):
+        match = re.match("^(\d{0,3})\.(\d{0,3})\.(\d{0,3})\.(\d{0,3})$", ip)
+        if not match: return False
+        quad = []
+        for number in match.groups(): quad.append(int(number))
+        if quad[0] < 1: return False
+        for number in quad:
+            if number > 255 or number < 0: return False
+        return True
+

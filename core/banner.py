@@ -2,18 +2,19 @@
 # -*- coding: utf-8 -*-
 
 from fungsi import warna
+import sys
 
 def banner():
     print(warna.hijau + """
-  _____      _    ___   ___  _
- |_   _|_  _| |_ / _ \ / _ \| |
-   | | \ \/ / __| | | | | | | | """ + warna.kuning + """
-   | |  >  <| |_| |_| | |_| | |___
-   |_| /_/\_\\\__|\___/ \___/|_____|
+   ______     __  ____  ____  __
+  /_  __/  __/ /_/ __ \/ __ \/ /
+   / / | |/_/ __/ / / / / / / / """ + warna.kuning + """
+  / / _>  </ /_/ /_/ / /_/ / /___
+ /_/ /_/|_|\__/\____/\____/_____/
 """+ warna.tutup + """
   Author     : """ + warna.abuabu + """ Kuburan A.K.A Gembur Ae """+ warna.tutup + """
-  Version    : """ + warna.abuabu + """ 1.0 """+ warna.tutup + """
-  Codename   : """ + warna.abuabu + """ Batu Nisan """+ warna.tutup + """
+  Version    : """ + warna.abuabu + """ 1.1 """+ warna.tutup + """
+  Codename   : """ + warna.abuabu + """ Tali Pocong """+ warna.tutup + """
 """ + warna.merah + """
 ========================================
 ========================================""" + warna.tutup + """

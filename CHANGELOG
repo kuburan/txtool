@@ -1,0 +1,10 @@
+-- Feb 27, 2018 --
+* second release (v1.1)
+* add Gmail directory traversal
+* add D-Link DIR605L (Denial of Service)
+* add Telesquare SKT LTE Router SDT-CS3B1
+* remove some unused dork, and also make some dork more sensitively.
+
+
+-- Feb 6, 2018 --
+* first release (v1.0)

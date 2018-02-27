@@ -8,15 +8,13 @@ sys.path.append('/data/data/com.termux/files/usr/share/txtool/core')
 from fungsi import warna, IP, txtool_dir
 import menu as back
 
-
 def empty():
     try:
         print(warna.kuning + "\n[!] " + warna.tutup + "Warning. your input is empty, txtool will be assume searching is canceled")
-        raw_input("\n    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
     except KeyError:
         pass
-
 
 def cari_admin_panel():
     IP()
@@ -29,7 +27,12 @@ def cari_admin_panel():
         empty()
         back.menu['menu_utama']()
 
-    print(warna.hijau + "\n[*]" + warna.tutup + " tXtool still searching admin login pages, please wait a moment...\n")
+    if "." not in link:
+        print(warna.merah + "\n[x]" + warna.tutup + " warning ! website address is not valid, txtool will be assume searching is canceled.")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+        back.menu['menu_utama']()
+
+    print(warna.hijau + "\n[*]" + warna.tutup + " searching admin login pages, please wait a moment...\n")
     while True:
         sub_link = file.readline()
         if not sub_link:
@@ -39,10 +42,10 @@ def cari_admin_panel():
         try:
             response = urlopen(requests)
 
-        except HTTPError as e:
+        except HTTPError:
             continue
 
-        except URLError as e:
+        except URLError:
             continue
 
         else:
