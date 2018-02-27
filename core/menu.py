@@ -3,7 +3,7 @@
 
 import sys, os, time
 from banner import banner
-from fungsi import check_metasploit, check_php, check_nmap, warna
+from fungsi import check_php, check_nmap, warna
 
 def menu_utama():
     banner()
@@ -14,6 +14,7 @@ def menu_utama():
     print("\t[" + warna.hijau + "4" + warna.tutup + "]" + warna.abuabu + "  Dorking For SQL Injection Vulnerability" + warna.tutup)
     print("\t[" + warna.hijau + "5" + warna.tutup + "]" + warna.abuabu + "  Exploiting Android" + warna.tutup)
     print("\t[" + warna.hijau + "6" + warna.tutup + "]" + warna.abuabu + "  Exploiting SCADA System" + warna.tutup)
+    print("\t[" + warna.hijau + "7" + warna.tutup + "]" + warna.abuabu + "  Hardware Exploitation" + warna.tutup)
     print("\t[" + warna.hijau + "q" + warna.tutup + "]" + warna.abuabu + "  Exit\n" + warna.tutup)
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " _>  " + warna.tutup)
     eksekusi_menu(pilih)
@@ -30,9 +31,7 @@ def eksekusi_menu(pilih):
         except KeyError:
             print("\n Wrong command  ~~>>  " + warna.merah + str(masukan) + warna.tutup)
             menu['menu_utama']()
-
     return
-
 
 def menu1():
     check_nmap()
@@ -43,7 +42,6 @@ def menu1():
     eksekusi_menu(pilih)
     return
 
-
 def menu2():
     sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
     import module4
@@ -53,7 +51,6 @@ def menu2():
     eksekusi_menu(pilih)
     return
 
-
 def menu3():
     check_php()
     sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
@@ -62,7 +59,6 @@ def menu3():
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " _>  " + warna.tutup)
     eksekusi_menu(pilih)
     return
-
 
 def menu4():
     check_php()
@@ -74,7 +70,6 @@ def menu4():
     return
 
 def menu5():
-    check_metasploit()
     import sub_menu
     sub_menu.menu_utama()
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " _>  " + warna.tutup)
@@ -84,6 +79,13 @@ def menu5():
 def menu6():
     import sub_menu3
     sub_menu3.menu_utama()
+    pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " _> " + warna.tutup)
+    eksekusi_menu(pilih)
+    return
+
+def menu7():
+    import sub_menu4
+    sub_menu4.menu_utama()
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " _> " + warna.tutup)
     eksekusi_menu(pilih)
     return
@@ -100,6 +102,7 @@ menu = {
     '4': menu4,
     '5': menu5,
     '6': menu6,
+    '7': menu7,
     'keluar': Keluar,
     'exit': Keluar,
     'quit': Keluar,

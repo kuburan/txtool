@@ -5,7 +5,6 @@ import sys, os
 import menu as KEMBALI
 from fungsi import warna, check_metasploit
 
-
 def menu_utama():
     print("\n\t[" + warna.hijau + "1" + warna.tutup + "]" + warna.abuabu + "  Siemens S7-1200 Remote Code Execution" + warna.tutup)
     print("\t[" + warna.hijau + "2" + warna.tutup + "]" + warna.abuabu + "  Phoenix Control PLC ILC-150" + warna.tutup)
@@ -18,7 +17,6 @@ def menu_utama():
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " ~~>>  " + warna.tutup)
     eksekusi_menu(pilih)
     return
-
 
 def eksekusi_menu(pilih):
     masukan = pilih.lower()
@@ -33,7 +31,6 @@ def eksekusi_menu(pilih):
 
     return
 
-
 def menu1():
     sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
     import module7
@@ -42,7 +39,6 @@ def menu1():
     eksekusi_menu(pilih)
     return
 
-
 def menu2():
     sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
     import module7
@@ -50,7 +46,6 @@ def menu2():
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " ~~>>  " + warna.tutup)
     eksekusi_menu(pilih)
     return
-
 
 def menu3():
     check_metasploit()
@@ -61,7 +56,6 @@ def menu3():
     eksekusi_menu(pilih)
     return
 
-
 def menu4():
     check_metasploit()
     sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
@@ -71,8 +65,8 @@ def menu4():
     eksekusi_menu(pilih)
     return
 
-
 def menu5():
+    check_metasploit()
     sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
     import module7
     module7.menu7()
@@ -80,8 +74,8 @@ def menu5():
     eksekusi_menu(pilih)
     return
 
-
 def menu6():
+    check_metasploit()
     sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
     import module7
     module7.menu6()
@@ -89,8 +83,8 @@ def menu6():
     eksekusi_menu(pilih)
     return
 
-
 def menu7():
+    check_metasploit()
     sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
     import module7
     module7.menu5()

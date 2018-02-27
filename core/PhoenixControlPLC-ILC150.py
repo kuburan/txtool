@@ -113,13 +113,9 @@ while True:
         break
 
     except socket.error as e:
-        print "\nSomething went wrong : ",e
+        print "\nAn error occured :" ,e
         raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
         back.menu['menu_utama']()
-
-    except(KeyboardInterrupt):
-        print(warna.merah + "\n[x] " + warna.tutup + "{0}CTRL+C{1} Detected, force program to stop !\n".format(warna.merah, warna.tutup))
-
 
 print(warna.hijau + "\n[*] " + warna.tutup + "Initializing PLC")
 print '------------------'
@@ -150,7 +146,7 @@ while True:
         break
 
     except socket.error as e:
-        print "\nSomething went wrong : ",e
+        print "\nAn error occured :" ,e
         raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
         back.menu['menu_utama']()
 

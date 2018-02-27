@@ -25,6 +25,7 @@
           in- and outputs and merkers.
           Only tested on S7-1200 series, before firmware v3 (no encryption)
 '''
+
 import os, sys, argparse, re, socket, binascii
 from fungsi import warna
 
@@ -108,7 +109,7 @@ def setupConnection(sIP, iPort):
             break
 
         except socket.error as e:
-            print "\nSomething went wrong : ",e
+            print warna.merah + "\n[x] " + warna.tutup + "An error occured :" ,e
             sys.exit()
 
     ## Always start with a COTP CR (Connection Request), we need a CS (Connection Success) back

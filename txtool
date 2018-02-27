@@ -43,3 +43,4 @@ if __name__=='__main__':
 
     except(KeyboardInterrupt):
         print(warna.merah + "\n[x] " + warna.tutup + "{0}CTRL+C{1} Detected, force program to stop !\n".format(warna.merah, warna.tutup))
+        sys.exit()

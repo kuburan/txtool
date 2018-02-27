@@ -5,15 +5,13 @@ import sys, os, time
 import menu as back
 from fungsi import check_metasploit, warna
 
-
 def menu_utama():
     print("\n\t[" + warna.hijau + "1" + warna.tutup + "]" + warna.abuabu + "  Multi Handler" + warna.tutup)
-    print("\t[" + warna.hijau + "2" + warna.tutup + "]" + warna.abuabu + "  TODO" + warna.tutup)
+    print("\t[" + warna.hijau + "2" + warna.tutup + "]" + warna.abuabu + "  Gmail App < 7.11.5.176568039 - Directory Traversal" + warna.tutup)
     print("\t[" + warna.hijau + "0" + warna.tutup + "]" + warna.abuabu + "  Back To Main Menu\n" + warna.tutup)
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " ~~>>  " + warna.tutup)
     eksekusi_menu(pilih)
     return
-
 
 def eksekusi_menu(pilih):
     masukan = pilih.lower()
@@ -28,8 +26,8 @@ def eksekusi_menu(pilih):
 
     return
 
-
 def menu1():
+    check_metasploit()
     sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
     import module7
     module7.menu1()
@@ -38,9 +36,12 @@ def menu1():
     return
 
 def menu2():
-    print(warna.kuning + "\n[!] " + "TODO" + warna.tutup)
-    print("   Still under development, wait for the next release.\n")
-    menu['menu_utama']()
+    sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
+    import module7
+    module7.menu2()
+    pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " ~~>> " + warna.tutup)
+    eksekusi_menu(pilih)
+    return
 
 def Kembali():
     back.menu['menu_utama']()
