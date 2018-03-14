@@ -111,33 +111,58 @@ def info():
     print(warna.kuning + "\n[!] " + warna.tutup + "if you are not spesified the port number, txtool will scan all port for you.")
 
 
+def check_vulners():
+    try:
+        if os.path.isfile("/data/data/com.termux/files/usr/share/nmap/scripts/vulners.nse"):
+            return True
+
+        if not os.path.isfile("/data/data/com.termux/files/usr/share/nmap/scripts/vulners.nse"):
+            print(warna.hijau + "\n[*]" + warna.tutup + " checking vulners script, please wait a moment.")
+            time.sleep(5)
+            print(warna.kuning + "\n[!]" + warna.tutup + " it seems vulners not installed in your device")
+            time.sleep(2)
+            print(warna.kuning + "\n[!]" + warna.tutup + " alright, txtool will prepare it for you.")
+            print(warna.hijau + "\n[*]" + warna.tutup + " please wait a moment.... ")
+            time.sleep(5)
+            vulners_dir = '/data/data/com.termux/files/usr/share/nmap/scripts'
+            os.system("apt-get install -y wget")
+            os.system("cd %s && wget https://raw.githubusercontent.com/vulnersCom/nmap-vulners/master/vulners.nse" %
+                      (vulners_dir))
+            print(warna.hijau + "\n[*]" + warna.tutup + " updating script. please wait a moment....")
+            time.sleep(3)
+            subprocess.Popen("nmap --script-updatedb",
+                             stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True).wait()
+            print(warna.hijau + "\n[*]" + warna.tutup + " ok, everything is fine.")
+            raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+
+    except KeyError:
+        pass
+
 def check_vulscan():
     try:
         if os.path.isdir("/data/data/com.termux/files/usr/share/nmap/scripts/vulscan"):
             pass
 
         if not os.path.isdir("/data/data/com.termux/files/usr/share/nmap/scripts/vulscan"):
-            print(warna.hijau + "\n[*]" + warna.tutup + " checking vulscan script, please wait a moment. ")
+            print(warna.hijau + "\n[*]" + warna.tutup + " checking vulscan script, please wait a moment... ")
             time.sleep(5)
-
             vulscan_dir = '/data/data/com.termux/files/usr/share/nmap/scripts'
-            if not os.path.isdir("%s/vulscan" % (vulscan_dir)):
-                print(warna.kuning + "\n[!]" + warna.tutup + " it seems vulscan not installed in your device")
-                time.sleep(2)
-                print(warna.kuning + "\n[!]" + warna.tutup + " alright, txtool will prepare it for you.")
-                print(warna.hijau + "\n[*]" + warna.tutup + " please wait a moment.... ")
-                time.sleep(5)
-                os.system("apt-get install -y wget tar")
-                os.system("cd %s && wget http://www.computec.ch/projekte/vulscan/download/nmap_nse_vulscan-2.0.tar.gz" %
-                              (vulscan_dir))
-                os.system("cd %s && tar -xf nmap_nse_vulscan-2.0.tar.gz " % (vulscan_dir))
-                os.system("rm -fr %s/nmap_nse_vulscan-2.0.tar.gz " % (vulscan_dir))
-                print(warna.hijau + "\n[*]" + warna.tutup + " updating script. please wait a moment.... ")
-                time.sleep(3)
-                subprocess.Popen("nmap --script-updatedb",
-                                 stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True).wait()
-                print(warna.hijau + "\n[*]" + warna.tutup + " ok, everythink is fine.")
-                raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
+            print(warna.kuning + "\n[!]" + warna.tutup + " it seems vulscan not installed in your device")
+            time.sleep(2)
+            print(warna.kuning + "\n[!]" + warna.tutup + " alright, txtool will prepare it for you.")
+            print(warna.hijau + "\n[*]" + warna.tutup + " please wait a moment.... ")
+            time.sleep(5)
+            os.system("apt-get install -y wget tar")
+            os.system("cd %s && wget http://www.computec.ch/projekte/vulscan/download/nmap_nse_vulscan-2.0.tar.gz" %
+                       (vulscan_dir))
+            os.system("cd %s && tar -xf nmap_nse_vulscan-2.0.tar.gz " % (vulscan_dir))
+            os.system("rm -fr %s/nmap_nse_vulscan-2.0.tar.gz " % (vulscan_dir))
+            print(warna.hijau + "\n[*]" + warna.tutup + " updating script. please wait a moment.... ")
+            time.sleep(3)
+            subprocess.Popen("nmap --script-updatedb",
+                             stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True).wait()
+            print(warna.hijau + "\n[*]" + warna.tutup + " ok, everything is fine.")
+            raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
     except KeyError:
         pass
@@ -150,16 +175,13 @@ def check_redpoint():
         if not os.path.isdir("/data/data/com.termux/files/usr/share/nmap/scripts/Redpoint"):
             print(warna.hijau + "\n[*]" + warna.tutup + " checking Redpoint scripts, please wait a moment. ")
             time.sleep(5)
-
             redpoint_tarball = '/data/data/com.termux/files/usr/share/txtool/other'
             redpoint_dir = '/data/data/com.termux/files/usr/share/nmap/scripts'
-            if not os.path.isdir("%s/Redpoint" % (redpoint_dir)):
-                print(warna.kuning + "\n[!]" + warna.tutup + " it seems Redpoint not installed in your device")
-                time.sleep(2)
-                print(warna.kuning + "\n[!]" + warna.tutup + " alright, txtool will prepare it for you.")
-                print(warna.hijau + "\n[*]" + warna.tutup + " please wait a moment.... ")
-                time.sleep(5)
-
+            print(warna.kuning + "\n[!]" + warna.tutup + " it seems Redpoint not installed in your device")
+            time.sleep(2)
+            print(warna.kuning + "\n[!]" + warna.tutup + " alright, txtool will prepare it for you.")
+            print(warna.hijau + "\n[*]" + warna.tutup + " please wait a moment.... ")
+            time.sleep(5)
             if os.path.isfile("%s/Redpoint.tar.xz" % (redpoint_tarball)):
                 os.system("apt-get install -y tar")
                 os.system("cp -f %s/Redpoint.tar.xz %s " %
@@ -170,7 +192,7 @@ def check_redpoint():
                 time.sleep(3)
                 subprocess.Popen("nmap --script-updatedb",
                              stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True).wait()
-                print(warna.hijau + "\n[*]" + warna.tutup + " ok, everythink is fine.")
+                print(warna.hijau + "\n[*]" + warna.tutup + " ok, everything is fine.")
                 raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue  ")
 
             elif not os.path.isfile("%s/Redpoint.tar.xz" % (redpoint_tarball)):
