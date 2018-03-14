@@ -2,18 +2,17 @@
 
 """
    Created by          :  Kuburan_0day A.K.A Gembur Ae
-   Version             :  1.0
-   Codename            :  Batu Nisan
+   Version             :  1.1
+   Codename            :  Tali Pocong
 
 """
-
 
 import os, sys
 
 # check default file
 bin_folder = '/data/data/com.termux/files/usr/bin'
 if not os.path.isfile("%s/txtool" % (bin_folder)):
-    sys.stderr.write("\n Fatal error, this file should be located under $PREFIX/bin directory.  !\n")
+    sys.stderr.write("\n Fatal error, this file should be located under $PREFIX/bin directory !\n")
     sys.exit()
 
 # check default directory

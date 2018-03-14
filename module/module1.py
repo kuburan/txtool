@@ -7,7 +7,7 @@ import module3
 
 sys.path.append("/data/data/com.termux/files/usr/share/txtool/core")
 from fungsi import empty, scan_finish, check_vulscan, check_redpoint
-from fungsi import IP, check_proxychains, info, warna
+from fungsi import IP, check_proxychains, info, warna, check_vulners
 import menu as back
 
 def menu_utama():
@@ -16,6 +16,7 @@ def menu_utama():
     print("\t[" + warna.hijau + "3" + warna.tutup + "]" + warna.abuabu + "  Scan Through Proxychains" + warna.tutup)
     print("\t[" + warna.hijau + "4" + warna.tutup + "]" + warna.abuabu + "  SCADA, ICS, PLC Scanning" + warna.tutup)
     print("\t[" + warna.hijau + "5" + warna.tutup + "]" + warna.abuabu + "  Checking Eternalblue Doublepulsar Vulnerability" + warna.tutup)
+    print("\t[" + warna.hijau + "6" + warna.tutup + "]" + warna.abuabu + "  Vulners" + warna.tutup)
     print("\t[" + warna.hijau + "0" + warna.tutup + "]" + warna.abuabu + "  Back To Main Menu\n" + warna.tutup)
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + "  ~~>>  " + warna.tutup)
     eksekusi_menu(pilih)
@@ -237,6 +238,50 @@ def menu5():
 
     return
 
+
+def menu6():
+    IP()
+    check_vulners()
+    script = "--script vulners"
+    pilih = raw_input(warna.biru + "\n[+]" + warna.tutup + " Enter Target IP or Host" + warna.kuning + "  >>  " + warna.tutup)
+    if pilih == '':
+        empty()
+        menu['menu_utama']()
+
+    info()
+    port = raw_input(warna.biru + "[+] " + warna.tutup + "Enter the port number" + warna.kuning + "  >>  " + warna.tutup)
+    print(warna.kuning + "\n[!] " + warna.tutup + "if you don't want to save the output file, so just let it blank.")
+    output_file = raw_input(warna.biru + "[+] " + warna.tutup + "Input the output file you want" + warna.kuning + "  >>  " + warna.tutup)
+    if port == '' and output_file == '':
+        subprocess.Popen("nmap -sV %s %s " %
+                          (script, pilih), shell=True).wait()
+        scan_finish()
+        menu['menu_utama']()
+
+    elif output_file == '':
+        subprocess.Popen("nmap -sV -p%s %s  %s" %
+                       (port, script, pilih), shell=True).wait()
+        scan_finish()
+        menu['menu_utama']()
+
+    elif port == '':
+        subprocess.Popen("nmap -sV %s %s -oN /data/data/com.termux/files/home/.txtool/%s " %
+                            (script, pilih, output_file), shell=True).wait()
+        print(warna.hijau + "\n[*] " + warna.tutup + "Finish scanning !!!")
+        print(warna.hijau + "[*]" + warna.tutup + " output file has been saved to : $HOME/.txtool/%s " %
+                (output_file))
+        raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+        menu['menu_utama']()
+
+    else:
+        subprocess.Popen("nmap -sV -p%s %s %s -oN /data/data/com.termux/files/home/.txtool/%s" %
+                         (port, script, pilih, output_file), shell=True).wait()
+        print(warna.hijau + "\n[*] " + warna.tutup + "Finish scanning !!!")
+        print(warna.hijau + "[*]" + warna.tutup + " output file has been saved to : $HOME/.txtool/%s " %
+                   (output_file))
+        raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+        menu['menu_utama']()
+
 def Kembali():
     back.menu['menu_utama']()
 
@@ -247,5 +292,6 @@ menu = {
     '3': menu3,
     '4': menu4,
     '5': menu5,
+    '6': menu6,
     '0': Kembali,
 }

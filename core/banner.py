@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from fungsi import warna
-import sys
 
 def banner():
     print(warna.hijau + """
@@ -15,7 +14,6 @@ def banner():
   Author     : """ + warna.abuabu + """ Kuburan A.K.A Gembur Ae """+ warna.tutup + """
   Version    : """ + warna.abuabu + """ 1.1 """+ warna.tutup + """
   Codename   : """ + warna.abuabu + """ Tali Pocong """+ warna.tutup + """
-""" + warna.merah + """
-========================================
-========================================""" + warna.tutup + """
+""" + warna.merah + """ =======================================
+ =======================================""" + warna.tutup + """
 """)
