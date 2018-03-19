@@ -29,6 +29,17 @@ def IP():
 
     return local_ip
 
+def check_ndiff():
+    ndiff_path = '/data/data/com.termux/files/usr/bin'
+    if not os.path.isfile("%s/ndiff" % (ndiff_path)):
+        print(warna.merah + "\n[x] Fatal error" + warna.tutup + " ndiff not found !")
+        print(warna.kuning + "[!] " + warna.tutup + "you can download ndiff binary at my Brach.")
+        print(warna.hijau + " https://github.com/kuburan/kuburan.github.io/tree/master/files/dists/termux/external/binary-all" + warna.tutup)
+        sys.exit()
+
+    else :
+        return True
+
 
 def check_proxychains():
     proxychains_path = '/data/data/com.termux/files/usr/bin'

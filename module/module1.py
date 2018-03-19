@@ -7,7 +7,7 @@ import module3
 
 sys.path.append("/data/data/com.termux/files/usr/share/txtool/core")
 from fungsi import empty, scan_finish, check_vulscan, check_redpoint
-from fungsi import IP, check_proxychains, info, warna, check_vulners
+from fungsi import IP, check_proxychains, info, warna, check_vulners, check_ndiff
 import menu as back
 
 def menu_utama():
@@ -17,6 +17,7 @@ def menu_utama():
     print("\t[" + warna.hijau + "4" + warna.tutup + "]" + warna.abuabu + "  SCADA, ICS, PLC Scanning" + warna.tutup)
     print("\t[" + warna.hijau + "5" + warna.tutup + "]" + warna.abuabu + "  Checking Eternalblue Doublepulsar Vulnerability" + warna.tutup)
     print("\t[" + warna.hijau + "6" + warna.tutup + "]" + warna.abuabu + "  Vulners" + warna.tutup)
+    print("\t[" + warna.hijau + "7" + warna.tutup + "]" + warna.abuabu + "  Compare Nmap output files with Ndiff" + warna.tutup)
     print("\t[" + warna.hijau + "0" + warna.tutup + "]" + warna.abuabu + "  Back To Main Menu\n" + warna.tutup)
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + "  ~~>>  " + warna.tutup)
     eksekusi_menu(pilih)
@@ -282,6 +283,41 @@ def menu6():
         raw_input("\n press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
         menu['menu_utama']()
 
+def menu7():
+    check_ndiff()
+    print(warna.hijau + "\n[*]" + warna.tutup + " Compare two Nmap XML files and display a list of their differences. Differences include host state changes, port state changes, and changes to service and OS detection.")
+    file_1 = raw_input(warna.biru + "\n[+] " + warna.tutup + "first output file" + warna.kuning + "  >>  " + warna.tutup)
+    if file_1 == '':
+        empty()
+        menu['menu_utama']()
+
+    if not ".xml" in file_1:
+        print(warna.merah + "\n[x] Error : " + warna.tutup + "the output file should be in .xml format")
+        menu['menu_utama']()
+
+    file_2 = raw_input(warna.biru + "\n[+] " + warna.tutup + "second output file to compare" + warna.kuning + "  >>  " + warna.tutup)
+    if file_2 == '':
+        empty()
+        menu['menu_utama']()
+
+    if not ".xml" in file_2:
+        print(warna.merah + "\n[x] Error : " + warna.tutup + "the output file should be in .xml format")
+        menu['menu_utama']()
+
+    print(warna.hijau + '\n[*] ' + warna.tutup + 'if you want to read in xml format, choose "yes". else return text format')
+    q = raw_input(warna.biru + "[+]" + warna.tutup + " Do you want to read in xml format ?" + warna.kuning + "  >>  " + warna.tutup)
+    if q == "yes" or q == "YES" or q == "y" or q == "Y" or q == "ya":
+        subprocess.Popen("ndiff --xml %s %s " %
+                         (file_1, file_2), shell=True).wait()
+        scan_finish()
+        menu['menu_utama']()
+
+    else:
+        subprocess.Popen("ndiff %s %s " %
+                         (file_1, file_2), shell=True).wait()
+        scan_finish()
+        menu['menu_utama']()
+
 def Kembali():
     back.menu['menu_utama']()
 
@@ -293,5 +329,6 @@ menu = {
     '4': menu4,
     '5': menu5,
     '6': menu6,
+    '7': menu7,
     '0': Kembali,
 }
