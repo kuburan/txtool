@@ -43,7 +43,14 @@ def menu1():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\n"CakeRoutingException" -site:github.com -site:stackoverflow.com -site:cakephp.org"\ninurl:".php?id=" "You have an error in your SQL syntax"\nintitle:"CGIWrap Error"\n"--- WebView Livescope Http Server Error ---" -git\n"Below is a rendering of the page up to the first error." ext:xml\ninurl:index of driver.php?id=\n""")
+            filewrite.write("""
+intitle:"Missing Controller" intext:"Cake\Routing\Exception\" -site:"https://sourceforge.net" -site:github.com -site:"stackoverflow.com" -site:"cakephp.org"
+inurl:".php?id=" "You have an error in your SQL syntax"
+intitle:"CGIWrap Error"
+"--- WebView Livescope Http Server Error ---" -git
+"Below is a rendering of the page up to the first error." ext:xml
+inurl:index of driver.php?id=
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -73,7 +80,14 @@ def menu2():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\nintext:"expects parameter 1 to be resource, boolean given" filetype:php\nintitle:"Struts Problem Report" intext:"development mode is enabled."\ninurl:"id=" & intext:"MySQL Error: 1064" & "Session halted."\nintitle:"DSM Terminator [ ABORT ]" | inurl:"./com.sap.portal.dsm.Terminator"\ninurl:/siteminderagent/ | app:"Error 404: java.io.FileNotFoundException: SRVE0190E: File not found: /siteminderagent/"\ninurl:/smpwservices.fcc | "/lm_private/CkeSetter.aspx"\n""")
+            filewrite.write("""
+intext:"expects parameter 1 to be resource, boolean given" filetype:php
+intitle:"Struts Problem Report" intext:"development mode is enabled."
+inurl:"id=" & intext:"MySQL Error: 1064" & "Session halted."
+intitle:"DSM Terminator [ ABORT ]" | inurl:"./com.sap.portal.dsm.Terminator"
+inurl:/siteminderagent/ | app:"Error 404: java.io.FileNotFoundException: SRVE0190E: File not found: /siteminderagent/"
+inurl:/smpwservices.fcc | "/lm_private/CkeSetter.aspx"
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -103,7 +117,14 @@ def menu3():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\ninurl:/console-selfservice/common/scripts/calendar/ipopeng.htm\ninurl:/nesp/app\ninurl:/SAML2/SOAP/ | inurl:/SAML2/POST\ninurl:/uniquesig0/ or inurl:/uniquesig0/InternalSite/\ninurl:index.php?id= intext:"mysql_fetch_array"\nintitle:Content Server Error IdcService=DOC_INFO\n""")
+            filewrite.write("""
+inurl:/console-selfservice/common/scripts/calendar/ipopeng.htm
+inurl:/nesp/app
+inurl:/SAML2/SOAP/ | inurl:/SAML2/POST
+inurl:/uniquesig0/ or inurl:/uniquesig0/InternalSite/
+inurl:index.php?id= intext:"mysql_fetch_array"
+intitle:Content Server Error IdcService=DOC_INFO
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -133,7 +154,14 @@ def menu4():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\nintitle:"Whoops! There was an error."\nintitle:Error-javax.el.ELException+error+xhtml\nintitle:Error Page pageWrapper.jsp?\nintext:"Unexpected Problem Occurred!" ext:aspx\n"[function.getimagesize]: failed to open stream: No such file or directory in"\nintext:"Access denied for" intitle:"Shopping cart"\n""")
+            filewrite.write("""
+intitle:"Whoops! There was an error."
+intitle:Error-javax.el.ELException+error+xhtml
+intitle:Error Page pageWrapper.jsp?
+intext:"Unexpected Problem Occurred!" ext:aspx
+"[function.getimagesize]: failed to open stream: No such file or directory in"
+intext:"Access denied for" intitle:"Shopping cart"
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -163,7 +191,14 @@ def menu5():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\ninurl:advsearch.php?module= & intext:sql syntax\nintext:"Fatal error: Class 'Red_Action' not found in"\n"CHARACTER_SETS" "COLLATION_CHARACTER_SET_APPLICABILITY"\ninurl:"*.php?*=*.php" intext:"Warning: include" -inurl:.html -site:"php.net" -site:"stackoverflow.com" -inurl:"*forums*"\ninurl:"index.php?m=content+c=rss+catid=10"\n"plugins/wp-db-backup/wp-db-backup.php"\n""")
+            filewrite.write("""
+inurl:advsearch.php?module= & intext:sql syntax
+intext:"Fatal error: Class 'Red_Action' not found in"
+"CHARACTER_SETS" "COLLATION_CHARACTER_SET_APPLICABILITY"
+inurl:"*.php?*=*.php" intext:"Warning: include" -inurl:.html -site:"php.net" -site:"stackoverflow.com" -inurl:"*forums*"
+inurl:"index.php?m=content+c=rss+catid=10"
+"plugins/wp-db-backup/wp-db-backup.php"
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -193,7 +228,14 @@ def menu6():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\nallintext:"fs-admin.php"\nintitle:"Apache Tomcat" "Error Report"\n"Unable to jump to row" "on MySQL result index" "on line"\n"Warning: Bad arguments to (join|implode) () in" "on line" -help -forum\n"Warning:" "failed to open stream: HTTP request failed" "on line"\n"Warning: mysql_connect(): Access denied for user: '*@*" "on line" -help -forum\n""")
+            filewrite.write("""
+allintext:"fs-admin.php"
+intitle:"Apache Tomcat" "Error Report"
+"Unable to jump to row" "on MySQL result index" "on line"
+"Warning: Bad arguments to (join|implode) () in" "on line" -help -forum
+"Warning:" "failed to open stream: HTTP request failed" "on line"
+"Warning: mysql_connect(): Access denied for user: '*@*" "on line" -help -forum
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -223,7 +265,13 @@ def menu7():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\nfiletype:asp + "[ODBC SQL"\n"Warning: Division by zero in" "on line" -forum\n"Warning:" "SAFE MODE Restriction in effect." "The script whose uid is" "is not allowed to access owned by uid 0 in" "on line"\n"Warning: Supplied argument is not a valid File-Handle resource in"\n"There seems to have been a problem with the" " Please try again by clicking the Refresh button in your web browser."\nintitle:"Default PLESK Page"\n""")
+            filewrite.write("""
+filetype:asp + "[ODBC SQL"\n"Warning: Division by zero in" "on line" -forum
+"Warning:" "SAFE MODE Restriction in effect." "The script whose uid is" "is not allowed to access owned by uid 0 in" "on line"
+"Warning: Supplied argument is not a valid File-Handle resource in"
+"There seems to have been a problem with the" " Please try again by clicking the Refresh button in your web browser."
+intitle:"Default PLESK Page"
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -253,7 +301,14 @@ def menu8():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\n"Parse error: parse error, unexpected T_VARIABLE" "on line" filetype:php\n"[SQL Server Driver][SQL Server]Line 1: Incorrect syntax near" -forum -thread -showthread\nNetscape Application Server Error page\nintext:"Error Message : Error loading required libraries."\n"Warning: mysql_query()" "invalid query"\nintitle:Configuration.File inurl:softcart.exe\n""")
+            filewrite.write("""
+"Parse error: parse error, unexpected T_VARIABLE" "on line" filetype:php
+"[SQL Server Driver][SQL Server]Line 1: Incorrect syntax near" -forum -thread -showthread
+Netscape Application Server Error page
+intext:"Error Message : Error loading required libraries."
+"Warning: mysql_query()" "invalid query"
+intitle:Configuration.File inurl:softcart.exe
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -283,7 +338,15 @@ def menu9():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\n"The script whose uid is " "is not allowed to access"\nsnitz! forums db path error\n"ASP.NET_SessionId" "data source="\n"ORA-12541: TNS:no listener" intitle:"error occurred"\nfiletype:php inurl:"logging.php" "Discuz" error\n"Internal Server Error" "server at"\nPHP application warnings failing "include_path"\n""")
+            filewrite.write("""
+"The script whose uid is " "is not allowed to access"
+snitz! forums db path error
+"ASP.NET_SessionId" "data source="
+"ORA-12541: TNS:no listener" intitle:"error occurred"
+filetype:php inurl:"logging.php" "Discuz" error
+"Internal Server Error" "server at"
+PHP application warnings failing "include_path"
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -313,7 +376,14 @@ def menu10():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\nintext:"Warning: Failed opening" "on line" "include_path"\nht://Dig htsearch error\nintitle:"Error Occurred While Processing Request"\nintitle:"Error using Hypernews" "Server Software"\n"Invision Power Board Database Error"\n"error found handling the request" cocoon filetype:xml\n""")
+            filewrite.write("""
+intext:"Warning: Failed opening" "on line" "include_path"
+ht://Dig htsearch error
+intitle:"Error Occurred While Processing Request"
+intitle:"Error using Hypernews" "Server Software"
+"Invision Power Board Database Error"
+"error found handling the request" cocoon filetype:xml
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -343,7 +413,14 @@ def menu11():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\nintitle:"Execution of this script not permitted"\nintitle:"Error Occurred" "The error occurred in" filetype:cfm\nwarning "error on line" php sablotron\n"Fatal error: Call to undefined function" -reply -the -next\nfiletype:asp "Custom Error Message" Category Source\n"Can't connect to local" intitle:warning\n""")
+            filewrite.write("""
+intitle:"Execution of this script not permitted"
+intitle:"Error Occurred" "The error occurred in" filetype:cfm
+warning "error on line" php sablotron
+"Fatal error: Call to undefined function" -reply -the -next
+filetype:asp "Custom Error Message" Category Source
+"Can't connect to local" intitle:warning
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -373,7 +450,13 @@ def menu12():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\nintitle:"Under construction" "does not currently have"\n"access denied for user" "using password"\n"Warning: Cannot modify header information - headers already sent"\n"Warning: pg_connect(): Unable to connect to PostgreSQL server: FATAL"\nAn unexpected token "END-OF-STATEMENT" was found\n""")
+            filewrite.write("""
+intitle:"Under construction" "does not currently have"
+"access denied for user" "using password"
+"Warning: Cannot modify header information - headers already sent"
+"Warning: pg_connect(): Unable to connect to PostgreSQL server: FATAL"
+An unexpected token "END-OF-STATEMENT" was found
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -403,7 +486,14 @@ def menu13():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\n"detected an internal error [IBM][CLI Driver][DB2/6000]"\n"A syntax error has occurred" filetype:ihtml\n"An illegal character has been found in the statement" -"previous message"\n"Syntax error in query expression " -the\nsupplied argument is not a valid PostgreSQL result\n"PostgreSQL query failed: ERROR: parser: parse error"\n""")
+            filewrite.write("""
+"detected an internal error [IBM][CLI Driver][DB2/6000]"
+"A syntax error has occurred" filetype:ihtml
+"An illegal character has been found in the statement" -"previous message"
+"Syntax error in query expression " -the
+supplied argument is not a valid PostgreSQL result
+"PostgreSQL query failed: ERROR: parser: parse error"
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -433,7 +523,14 @@ def menu14():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\n"Incorrect syntax near"\n"Unclosed quotation mark before the character string"\n"ORA-00933: SQL command not properly ended"\nORA-00921: unexpected end of SQL command\nORA-00936: missing expression\n"Supplied argument is not a valid MySQL result resource"\n""")
+            filewrite.write("""
+"Incorrect syntax near"
+"Unclosed quotation mark before the character string"
+"ORA-00933: SQL command not properly ended"
+ORA-00921: unexpected end of SQL command
+ORA-00936: missing expression
+"Supplied argument is not a valid MySQL result resource"
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -463,7 +560,13 @@ def menu15():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\nsQL syntax error\nmysql error with query\nInternal Server Error\nIIS web server error messages\nWindows 2000 web server error messages\nIIS 4.0 error messages\n""")
+            filewrite.write("""
+sQL syntax error\nmysql error with query
+Internal Server Error
+IIS web server error messages
+Windows 2000 web server error messages
+IIS 4.0 error messages
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
@@ -493,7 +596,14 @@ def menu16():
 
         else:
             filewrite = open(txtool_dir + "/dork.txt", "w")
-            filewrite.write("""\ninurl:sitebuilderpictures\nsitebuilderfiles\nsitebuildercontent\n"Chatologica MetaSearch" "stack tracking\nORA-00921: unexpected end of SQL command\n"supplied argument is not a valid MySQL result resource"\nColdfusion Error Pages\n""")
+            filewrite.write("""
+inurl:sitebuilderpictures
+sitebuilderfiles\nsitebuildercontent
+"Chatologica MetaSearch" "stack tracking
+ORA-00921: unexpected end of SQL command
+"supplied argument is not a valid MySQL result resource"
+Coldfusion Error Pages
+""")
             filewrite.close()
             subprocess.Popen("cd %s && ./inurlbr --no-banner --dork-file %s/dork.txt -q 1,6 -t 1 --sall %s" %
                 (inurl, txtool_dir, output), shell=True).wait()
