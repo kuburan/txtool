@@ -8,11 +8,10 @@ build on termux and only available for termux.
 $ git clone https://github.com/kuburan/txtool.git  
 $ cd txtool  
 $ apt install python2  
-$ ./install.py
+$ ./install.py 
+$ txtool
 ```
-
-Done. type txtool to launch this tool.  
-
+ 
 # Screenshot  
 ![Screenshot](https://raw.githubusercontent.com/kuburan/txtool/master/screenshot/Screenshot_a.png)  
 ![Screenshot](https://raw.githubusercontent.com/kuburan/txtool/master/screenshot/Screenshot_b.png)  
