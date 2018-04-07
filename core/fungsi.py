@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/python2
 # -*- coding: utf-8 -*-
 
-import re, subprocess, sys, os, time, socket
+import re, subprocess, sys, os, time, socket, select, termios, tty
 
 class warna():
     abuabu = '\033[96m'
@@ -255,3 +255,32 @@ def ipv4(ip):
             if number > 255 or number < 0: return False
         return True
 
+def ssh_shell(command):
+    from paramiko.py3compat import u
+    oldtty = termios.tcgetattr(sys.stdin)
+    try:
+        tty.setraw(sys.stdin.fileno())
+        tty.setcbreak(sys.stdin.fileno())
+        command.settimeout(0.0)
+        while True:
+            r, w, e = select.select([command, sys.stdin], [], [])
+            if command in r:
+                try:
+                    x = u(command.recv(1024))
+                    if len(x) == 0:
+                        sys.stdout.write('\r\n{0}[x]{1} shell closed'.format(warna.merah, warna.tutup))
+                        break
+                    sys.stdout.write(x)
+                    sys.stdout.flush()
+
+                except socket.timeout:
+                    pass
+
+            if sys.stdin in r:
+                x = sys.stdin.read(1)
+                if len(x) == 0:
+                    break
+                command.send(x)
+
+    finally:
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, oldtty)
