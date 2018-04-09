@@ -22,5 +22,5 @@ else:
     os.system("cp -r module %s/txtool && cp -r other %s/txtool" %
              (share, share))
     os.system("apt-get install --assume-yes nmap php curl")
-    os.system("pip2 install requests")
+    os.system("pip2 install requests bs4")
     print "\n[*] Done !!! type command txtool to launch txtool\n"

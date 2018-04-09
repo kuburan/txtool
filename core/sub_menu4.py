@@ -10,8 +10,9 @@ def menu_utama():
     print("\t[" + warna.hijau + "2" + warna.tutup + "]" + warna.abuabu + "  Telesquare SKT LTE Router SDT-CS3B1" + warna.tutup)
     print("\t[" + warna.hijau + "3" + warna.tutup + "]" + warna.abuabu + "  Contec SmartHome Unauthorized Users Added" + warna.tutup)
     print("\t[" + warna.hijau + "4" + warna.tutup + "]" + warna.abuabu + "  VideoFlow DVP 10 Root ssh Backdoor Access" + warna.tutup)
+    print("\t[" + warna.hijau + "5" + warna.tutup + "]" + warna.abuabu + "  Master IP CAM 01 Multiple Vulnerabilities" + warna.tutup)
     print("\t[" + warna.hijau + "0" + warna.tutup + "]" + warna.abuabu + "  Back To Main Menu\n" + warna.tutup)
-    pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " ~~>>  " + warna.tutup)
+    pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + "  ~~>>  " + warna.tutup)
     eksekusi_menu(pilih)
     return
 
@@ -56,6 +57,13 @@ def menu4():
     pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " ~~>> " + warna.tutup)
     eksekusi_menu(pilih)
 
+def menu5():
+    sys.path.append("/data/data/com.termux/files/usr/share/txtool/module")
+    import module18
+    module18.exploit5()
+    pilih = raw_input(warna.hijau + " tXtool " + warna.tutup + warna.kuning + " ~~>> " + warna.tutup)
+    eksekusi_menu(pilih)
+
 def Kembali():
     back.menu['menu_utama']()
 
@@ -65,5 +73,6 @@ menu = {
     '2': menu2,
     '3': menu3,
     '4': menu4,
+    '5': menu5,
     '0': Kembali,
 }
