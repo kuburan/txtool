@@ -1,3 +1,7 @@
+-- April 10, 2018 --
+* v1.3-rev2
+* Master IP CAM 01 Multiple Vulnerabilities
+
 -- April 7, 2018 --
 * v1.3
 * add VideoFlow DVP 10 Root ssh Backdoor Access
@@ -6,17 +10,14 @@
 * v1.2-rev2
 * add Contec SmartHome Unauthorized User Added
 
-
 -- March 19, 2018 --
 * v1.2
 * add compare with ndiff
-
 
 -- March 14, 2018 --
 * v1.1-rev2
 * add vulners
 * remove some unused dork, and also make some dork more sensitively.
-
 
 -- Feb 27, 2018 --
 * second release (v1.1)
@@ -24,7 +25,6 @@
 * add D-Link DIR605L (Denial of Service)
 * add Telesquare SKT LTE Router SDT-CS3B1
 * remove some unused dork, and also make some dork more sensitively.
-
 
 -- Feb 6, 2018 --
 * first release (v1.0)
