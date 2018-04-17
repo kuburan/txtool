@@ -3,7 +3,6 @@ build on termux and only available for termux.
 
 Installation steps: 
 ===
-* make sure Termux already installed on your device, you can get Termux on [Playstore](https://play.google.com/store/apps/details?id=com.termux) or [F-Droid](https://f-droid.org/packages/com.termux/)
 * require python version 2.x  
 
 ```
